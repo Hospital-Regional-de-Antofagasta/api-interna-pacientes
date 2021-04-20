@@ -22,6 +22,6 @@ const Paciente = mongoose.model('paciente', new Schema ({
     PAC_PAC_TelefonoMovil: String,
     PAC_PAC_CorreoCuerpo: String,
     PAC_PAC_CorreoExtension: String,
-}))
+}, { timestamps: true }))
 
 module.exports = Paciente
