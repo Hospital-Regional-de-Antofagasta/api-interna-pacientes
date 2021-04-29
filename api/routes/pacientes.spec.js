@@ -27,41 +27,41 @@ afterEach(async () => {
 
 // paciente para realizar las pruebas
 const pacienteGuardar = {
-    PAC_PAC_Numero: 100,
-    PAC_PAC_Rut: '1-1',
-    PAC_PAC_ApellPater: 'Apellido Paterno Paciente',
-    PAC_PAC_ApellMater: 'Apellido Materno Paciente',
-    PAC_PAC_Nombre: 'Nombre Paciente',
-    PAC_PAC_CalleHabit: 'Calle',
-    PAC_PAC_NumerHabit: '1234',
-    PAC_PAC_DeparHabit: 'Departamento',
-    PAC_PAC_PoblaHabit: 'Poblacion',
-    PAC_PAC_ComunHabit: 'Comuna',
-    PAC_PAC_CiudaHabit: 'Ciudad',
-    PAC_PAC_RegioHabit: 'Region',
-    PAC_PAC_Fono: '123412',
-    PAC_PAC_TelefonoMovil: '12341234',
-    PAC_PAC_CorreoCuerpo: 'correo',
-    PAC_PAC_CorreoExtension: '@correo.com',
+    numeroPaciente: 100,
+    rut: '1-1',
+    apellidoPaterno: 'Apellido Paterno Paciente',
+    apellidoMaterno: 'Apellido Materno Paciente',
+    nombre: 'Nombre Paciente',
+    direccionCalle: 'Calle',
+    direccionNumero: '1234',
+    direccionDepartamento: 'Departamento',
+    direccionPoblacion: 'Poblacion',
+    codigoComuna: 'Comuna',
+    codigoCiudad: 'Ciudad',
+    codigoRegion: 'Region',
+    fono: '123412',
+    telefonoMovil: '12341234',
+    correoCuerpo: 'correo',
+    correoExtension: '@correo.com',
 }
 
 const pacienteActualizar = {
-    PAC_PAC_Numero:16,
-    PAC_PAC_Rut:"10771131-7",
-    PAC_PAC_ApellPater:"LAZO",
-    PAC_PAC_ApellMater:"ZAMBRA",
-    PAC_PAC_Nombre:"JACQUELINE CLOTILDE",
-    PAC_PAC_CalleHabit:"calle",
-    PAC_PAC_NumerHabit:"123",
-    PAC_PAC_DeparHabit:"21",
-    PAC_PAC_PoblaHabit:"poblacion",
-    PAC_PAC_ComunHabit:"comuna",
-    PAC_PAC_CiudaHabit:"ciudad",
-    PAC_PAC_RegioHabit:"region",
-    PAC_PAC_Fono:"123123",
-    PAC_PAC_TelefonoMovil:"12341234",
-    PAC_PAC_CorreoCuerpo:"correo",
-    PAC_PAC_CorreoExtension: '@correo.com',
+    numeroPaciente:16,
+    rut:"10771131-7",
+    apellidoPaterno:"LAZO",
+    apellidoMaterno:"ZAMBRA",
+    nombre:"JACQUELINE CLOTILDE",
+    direccionCalle:"calle",
+    direccionNumero:"123",
+    direccionDepartamento:"21",
+    direccionPoblacion:"poblacion",
+    codigoComuna:"comuna",
+    codigoCiudad:"ciudad",
+    codigoRegion:"region",
+    fono:"123123",
+    telefonoMovil:"12341234",
+    correoCuerpo:"correo",
+    correoExtension: '@correo.com',
 }
 
 describe('Endpoints pacientes', () => {
@@ -72,7 +72,7 @@ describe('Endpoints pacientes', () => {
             const response = await request.get('/hra/hradb_a_mongodb/pacientes/ultimo')
                 .set('Authorization', 'no-token')
             // verificar que retorno el status code correcto
-            expect(response.status).toBe(403)
+            expect(response.status).toBe(401)
 
             done()
         })
@@ -99,22 +99,22 @@ describe('Endpoints pacientes', () => {
             // verificar que retorno el status code correcto
             expect(response.status).toBe(200)
             // verificar que el paciente obtenido es igual al que se guardo
-            expect(response.body.PAC_PAC_Numero).toBe(pacienteGuardar.PAC_PAC_Numero)
-            expect(response.body.PAC_PAC_Rut).toBe(pacienteGuardar.PAC_PAC_Rut)
-            expect(response.body.PAC_PAC_ApellPater).toBe(pacienteGuardar.PAC_PAC_ApellPater)
-            expect(response.body.PAC_PAC_ApellMater).toBe(pacienteGuardar.PAC_PAC_ApellMater)
-            expect(response.body.PAC_PAC_Nombre).toBe(pacienteGuardar.PAC_PAC_Nombre)
-            expect(response.body.PAC_PAC_CalleHabit).toBe(pacienteGuardar.PAC_PAC_CalleHabit)
-            expect(response.body.PAC_PAC_NumerHabit).toBe(pacienteGuardar.PAC_PAC_NumerHabit)
-            expect(response.body.PAC_PAC_DeparHabit).toBe(pacienteGuardar.PAC_PAC_DeparHabit)
-            expect(response.body.PAC_PAC_PoblaHabit).toBe(pacienteGuardar.PAC_PAC_PoblaHabit)
-            expect(response.body.PAC_PAC_ComunHabit).toBe(pacienteGuardar.PAC_PAC_ComunHabit)
-            expect(response.body.PAC_PAC_CiudaHabit).toBe(pacienteGuardar.PAC_PAC_CiudaHabit)
-            expect(response.body.PAC_PAC_RegioHabit).toBe(pacienteGuardar.PAC_PAC_RegioHabit)
-            expect(response.body.PAC_PAC_Fono).toBe(pacienteGuardar.PAC_PAC_Fono)
-            expect(response.body.PAC_PAC_TelefonoMovil).toBe(pacienteGuardar.PAC_PAC_TelefonoMovil)
-            expect(response.body.PAC_PAC_CorreoCuerpo).toBe(pacienteGuardar.PAC_PAC_CorreoCuerpo)
-            expect(response.body.PAC_PAC_CorreoExtension).toBe(pacienteGuardar.PAC_PAC_CorreoExtension)
+            expect(response.body.numeroPaciente).toBe(pacienteGuardar.numeroPaciente)
+            expect(response.body.rut).toBe(pacienteGuardar.rut)
+            expect(response.body.apellidoPaterno).toBe(pacienteGuardar.apellidoPaterno)
+            expect(response.body.apellidoMaterno).toBe(pacienteGuardar.apellidoMaterno)
+            expect(response.body.nombre).toBe(pacienteGuardar.nombre)
+            expect(response.body.direccionCalle).toBe(pacienteGuardar.direccionCalle)
+            expect(response.body.direccionNumero).toBe(pacienteGuardar.direccionNumero)
+            expect(response.body.direccionDepartamento).toBe(pacienteGuardar.direccionDepartamento)
+            expect(response.body.direccionPoblacion).toBe(pacienteGuardar.direccionPoblacion)
+            expect(response.body.codigoComuna).toBe(pacienteGuardar.codigoComuna)
+            expect(response.body.codigoCiudad).toBe(pacienteGuardar.codigoCiudad)
+            expect(response.body.codigoRegion).toBe(pacienteGuardar.codigoRegion)
+            expect(response.body.fono).toBe(pacienteGuardar.fono)
+            expect(response.body.telefonoMovil).toBe(pacienteGuardar.telefonoMovil)
+            expect(response.body.correoCuerpo).toBe(pacienteGuardar.correoCuerpo)
+            expect(response.body.correoExtension).toBe(pacienteGuardar.correoExtension)
 
             done()
         })
@@ -127,9 +127,9 @@ describe('Endpoints pacientes', () => {
                 .set('Authorization', 'no-token')
                 .send(pacienteGuardar)
             // obtener el paciente que no se guardo
-            const pacienteObtenido = await Pacientes.findOne({ PAC_PAC_Numero: pacienteGuardar.PAC_PAC_Numero })
+            const pacienteObtenido = await Pacientes.findOne({ numeroPaciente: pacienteGuardar.numeroPaciente })
             // verificar que retorno el status code correcto
-            expect(response.status).toBe(403)
+            expect(response.status).toBe(401)
             // no se debe haber encontrado el paciente
             expect(pacienteObtenido).toBeFalsy()
 
@@ -142,26 +142,26 @@ describe('Endpoints pacientes', () => {
                 .set('Authorization', token)
                 .send(pacienteGuardar)
             // obtener el paciente que se guardo
-            const pacienteObtenido = await Pacientes.findOne({ PAC_PAC_Numero: pacienteGuardar.PAC_PAC_Numero })
+            const pacienteObtenido = await Pacientes.findOne({ numeroPaciente: pacienteGuardar.numeroPaciente })
             // verificar que retorno el status code correcto
             expect(response.status).toBe(201)
             // verificar que el paciente obtenido de la bd es igual al que se guardo
-            expect(pacienteObtenido.PAC_PAC_Numero).toBe(pacienteGuardar.PAC_PAC_Numero)
-            expect(pacienteObtenido.PAC_PAC_Rut).toBe(pacienteGuardar.PAC_PAC_Rut)
-            expect(pacienteObtenido.PAC_PAC_ApellPater).toBe(pacienteGuardar.PAC_PAC_ApellPater)
-            expect(pacienteObtenido.PAC_PAC_ApellMater).toBe(pacienteGuardar.PAC_PAC_ApellMater)
-            expect(pacienteObtenido.PAC_PAC_Nombre).toBe(pacienteGuardar.PAC_PAC_Nombre)
-            expect(pacienteObtenido.PAC_PAC_CalleHabit).toBe(pacienteGuardar.PAC_PAC_CalleHabit)
-            expect(pacienteObtenido.PAC_PAC_NumerHabit).toBe(pacienteGuardar.PAC_PAC_NumerHabit)
-            expect(pacienteObtenido.PAC_PAC_DeparHabit).toBe(pacienteGuardar.PAC_PAC_DeparHabit)
-            expect(pacienteObtenido.PAC_PAC_PoblaHabit).toBe(pacienteGuardar.PAC_PAC_PoblaHabit)
-            expect(pacienteObtenido.PAC_PAC_ComunHabit).toBe(pacienteGuardar.PAC_PAC_ComunHabit)
-            expect(pacienteObtenido.PAC_PAC_CiudaHabit).toBe(pacienteGuardar.PAC_PAC_CiudaHabit)
-            expect(pacienteObtenido.PAC_PAC_RegioHabit).toBe(pacienteGuardar.PAC_PAC_RegioHabit)
-            expect(pacienteObtenido.PAC_PAC_Fono).toBe(pacienteGuardar.PAC_PAC_Fono)
-            expect(pacienteObtenido.PAC_PAC_TelefonoMovil).toBe(pacienteGuardar.PAC_PAC_TelefonoMovil)
-            expect(pacienteObtenido.PAC_PAC_CorreoCuerpo).toBe(pacienteGuardar.PAC_PAC_CorreoCuerpo)
-            expect(pacienteObtenido.PAC_PAC_CorreoExtension).toBe(pacienteGuardar.PAC_PAC_CorreoExtension)
+            expect(pacienteObtenido.numeroPaciente).toBe(pacienteGuardar.numeroPaciente)
+            expect(pacienteObtenido.rut).toBe(pacienteGuardar.rut)
+            expect(pacienteObtenido.apellidoPaterno).toBe(pacienteGuardar.apellidoPaterno)
+            expect(pacienteObtenido.apellidoMaterno).toBe(pacienteGuardar.apellidoMaterno)
+            expect(pacienteObtenido.nombre).toBe(pacienteGuardar.nombre)
+            expect(pacienteObtenido.direccionCalle).toBe(pacienteGuardar.direccionCalle)
+            expect(pacienteObtenido.direccionNumero).toBe(pacienteGuardar.direccionNumero)
+            expect(pacienteObtenido.direccionDepartamento).toBe(pacienteGuardar.direccionDepartamento)
+            expect(pacienteObtenido.direccionPoblacion).toBe(pacienteGuardar.direccionPoblacion)
+            expect(pacienteObtenido.codigoComuna).toBe(pacienteGuardar.codigoComuna)
+            expect(pacienteObtenido.codigoCiudad).toBe(pacienteGuardar.codigoCiudad)
+            expect(pacienteObtenido.codigoRegion).toBe(pacienteGuardar.codigoRegion)
+            expect(pacienteObtenido.fono).toBe(pacienteGuardar.fono)
+            expect(pacienteObtenido.telefonoMovil).toBe(pacienteGuardar.telefonoMovil)
+            expect(pacienteObtenido.correoCuerpo).toBe(pacienteGuardar.correoCuerpo)
+            expect(pacienteObtenido.correoExtension).toBe(pacienteGuardar.correoExtension)
 
             done()
         })
@@ -170,41 +170,41 @@ describe('Endpoints pacientes', () => {
         // test autorizacion
         it('Should not update paciente to database', async (done) => {
             // ejecutar endpoint
-            const response = await request.put(`/hra/hradb_a_mongodb/pacientes/${pacienteActualizar.PAC_PAC_Numero}`)
+            const response = await request.put(`/hra/hradb_a_mongodb/pacientes/${pacienteActualizar.numeroPaciente}`)
                 .set('Authorization', 'no-token')
                 .send(pacienteActualizar)
             // verificar que retorno el status code correcto
-            expect(response.status).toBe(403)
+            expect(response.status).toBe(401)
 
             done()
         })
         // test actualizar paciente
         it('Should update paciente to database', async (done) => {
             // ejecutar endpoint
-            const response = await request.put(`/hra/hradb_a_mongodb/pacientes/${pacienteActualizar.PAC_PAC_Numero}`)
+            const response = await request.put(`/hra/hradb_a_mongodb/pacientes/${pacienteActualizar.numeroPaciente}`)
                 .set('Authorization', token)
                 .send(pacienteActualizar)
             // obtener el paciente que se acualizo
-            const pacienteObtenido = await Pacientes.findOne({ PAC_PAC_Numero: pacienteActualizar.PAC_PAC_Numero })
+            const pacienteObtenido = await Pacientes.findOne({ numeroPaciente: pacienteActualizar.numeroPaciente })
             // verificar que retorno el status code correcto
             expect(response.status).toBe(204)
             // verificar que el paciente obtenido es igual al que se guardo
-            expect(pacienteObtenido.PAC_PAC_Numero).toBe(pacienteActualizar.PAC_PAC_Numero)
-            expect(pacienteObtenido.PAC_PAC_Rut).toBe(pacienteActualizar.PAC_PAC_Rut)
-            expect(pacienteObtenido.PAC_PAC_ApellPater).toBe(pacienteActualizar.PAC_PAC_ApellPater)
-            expect(pacienteObtenido.PAC_PAC_ApellMater).toBe(pacienteActualizar.PAC_PAC_ApellMater)
-            expect(pacienteObtenido.PAC_PAC_Nombre).toBe(pacienteActualizar.PAC_PAC_Nombre)
-            expect(pacienteObtenido.PAC_PAC_CalleHabit).toBe(pacienteActualizar.PAC_PAC_CalleHabit)
-            expect(pacienteObtenido.PAC_PAC_NumerHabit).toBe(pacienteActualizar.PAC_PAC_NumerHabit)
-            expect(pacienteObtenido.PAC_PAC_DeparHabit).toBe(pacienteActualizar.PAC_PAC_DeparHabit)
-            expect(pacienteObtenido.PAC_PAC_PoblaHabit).toBe(pacienteActualizar.PAC_PAC_PoblaHabit)
-            expect(pacienteObtenido.PAC_PAC_ComunHabit).toBe(pacienteActualizar.PAC_PAC_ComunHabit)
-            expect(pacienteObtenido.PAC_PAC_CiudaHabit).toBe(pacienteActualizar.PAC_PAC_CiudaHabit)
-            expect(pacienteObtenido.PAC_PAC_RegioHabit).toBe(pacienteActualizar.PAC_PAC_RegioHabit)
-            expect(pacienteObtenido.PAC_PAC_Fono).toBe(pacienteActualizar.PAC_PAC_Fono)
-            expect(pacienteObtenido.PAC_PAC_TelefonoMovil).toBe(pacienteActualizar.PAC_PAC_TelefonoMovil)
-            expect(pacienteObtenido.PAC_PAC_CorreoCuerpo).toBe(pacienteActualizar.PAC_PAC_CorreoCuerpo)
-            expect(pacienteObtenido.PAC_PAC_CorreoExtension).toBe(pacienteActualizar.PAC_PAC_CorreoExtension)
+            expect(pacienteObtenido.numeroPaciente).toBe(pacienteActualizar.numeroPaciente)
+            expect(pacienteObtenido.rut).toBe(pacienteActualizar.rut)
+            expect(pacienteObtenido.apellidoPaterno).toBe(pacienteActualizar.apellidoPaterno)
+            expect(pacienteObtenido.apellidoMaterno).toBe(pacienteActualizar.apellidoMaterno)
+            expect(pacienteObtenido.nombre).toBe(pacienteActualizar.nombre)
+            expect(pacienteObtenido.direccionCalle).toBe(pacienteActualizar.direccionCalle)
+            expect(pacienteObtenido.direccionNumero).toBe(pacienteActualizar.direccionNumero)
+            expect(pacienteObtenido.direccionDepartamento).toBe(pacienteActualizar.direccionDepartamento)
+            expect(pacienteObtenido.direccionPoblacion).toBe(pacienteActualizar.direccionPoblacion)
+            expect(pacienteObtenido.codigoComuna).toBe(pacienteActualizar.codigoComuna)
+            expect(pacienteObtenido.codigoCiudad).toBe(pacienteActualizar.codigoCiudad)
+            expect(pacienteObtenido.codigoRegion).toBe(pacienteActualizar.codigoRegion)
+            expect(pacienteObtenido.fono).toBe(pacienteActualizar.fono)
+            expect(pacienteObtenido.telefonoMovil).toBe(pacienteActualizar.telefonoMovil)
+            expect(pacienteObtenido.correoCuerpo).toBe(pacienteActualizar.correoCuerpo)
+            expect(pacienteObtenido.correoExtension).toBe(pacienteActualizar.correoExtension)
 
             done()
         })
