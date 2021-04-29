@@ -4,7 +4,7 @@ const Pacientes = require('../models/Pacientes')
 exports.getLast = async (req, res) => {
     try {
         const paciente = await Pacientes.findOne()
-            .sort({ PAC_PAC_Numero: -1 }).exec()
+            .sort({ numeroPaciente: -1 }).exec()
         res.status(200).send(paciente)
     } catch (error) {
         res.status(500).send(`Pacientes: ${error.name} - ${error.message}`)
@@ -24,7 +24,7 @@ exports.create = async (req, res) => {
 // actualizar paciente en la bd recibiendo el numero de paciente
 exports.update = async (req, res) => {
     try {
-        const filter = { PAC_PAC_Numero: req.params.pacPacNumero }
+        const filter = { numeroPaciente: req.params.pacPacNumero }
         const update = req.body
         await Pacientes.findOneAndUpdate(filter, update).exec()
         res.sendStatus(204)
