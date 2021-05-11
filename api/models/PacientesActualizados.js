@@ -1,8 +1,8 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const Paciente = mongoose.model(
-  "paciente",
+const PacientesActualizados = mongoose.model(
+  "pacientes_actualizado",
   new Schema(
     {
       numeroPaciente: {
@@ -10,10 +10,6 @@ const Paciente = mongoose.model(
         require: true,
         unique: true,
       },
-      rut: String,
-      apellidoPaterno: String,
-      apellidoMaterno: String,
-      nombre: String,
       direccionCalle: String,
       direccionNumero: String,
       direccionDepartamento: String,
@@ -30,4 +26,4 @@ const Paciente = mongoose.model(
   )
 );
 
-module.exports = Paciente;
+module.exports = PacientesActualizados;

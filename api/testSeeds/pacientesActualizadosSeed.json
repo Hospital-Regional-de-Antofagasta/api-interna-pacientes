@@ -1,0 +1,30 @@
+[
+  {
+      "numeroPaciente":"16",
+      "direccionCalle":"calle",
+      "direccionNumero":"123",
+      "direccionDepartamento":"203",
+      "direccionPoblacion":"poblacion",
+      "codigoComuna":"01",
+      "codigoCiudad":"03",
+      "codigoRegion":"02",
+      "fono":"123456",
+      "telefonoMovil":"945679864",
+      "correoCuerpo":"correo",
+      "correoExtension":"correo.com"
+  },
+  {
+      "numeroPaciente":"19",
+      "direccionCalle":"calle",
+      "direccionNumero":"1234",
+      "direccionDepartamento":"907",
+      "direccionPoblacion":"poblacion",
+      "codigoComuna":"02",
+      "codigoCiudad":"03",
+      "codigoRegion":"01",
+      "fono":"789456",
+      "telefonoMovil":"968459742",
+      "correoCuerpo":"correo",
+      "correoExtension":"correo.com"
+  }
+]
