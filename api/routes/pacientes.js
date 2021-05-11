@@ -16,7 +16,7 @@ router.get(
   pacientesController.getPacientesActualizados
 );
 
-router.put(
+router.get(
   "/actualizar_datos_contacto_y_eliminar_solicitud/:numeroPaciente",
   isAuthenticated,
   pacientesController.updateAndDeleteSolicitud
