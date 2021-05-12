@@ -62,7 +62,13 @@ exports.updateAndDeleteSolicitud = async (req, res) => {
     if (!pacienteActualizado)
       return res.status(404).send({ respuesta: "Paciente no encontrado." });
     // obtener solo los campos que se debe actualizar
-    const { _id, __v, createdAt, updatedAt, ...datosPacienteActualizado } = pacienteActualizado.toObject();
+    const {
+      _id,
+      __v,
+      createdAt,
+      updatedAt,
+      ...datosPacienteActualizado
+    } = pacienteActualizado.toObject();
     await Paciente.updateOne(
       { numeroPaciente },
       datosPacienteActualizado
