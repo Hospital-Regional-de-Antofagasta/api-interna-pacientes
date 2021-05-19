@@ -1,13 +1,25 @@
-const express = require('express')
-const pacientesController = require('../controllers/pacientesController')
-const { isAuthenticated } = require('../middleware/auth')
+const express = require("express");
+const pacientesController = require("../controllers/pacientesController");
+const { isAuthenticated } = require("../middleware/auth");
 
-const router = express.Router()
+const router = express.Router();
 
-router.get('/ultimo', isAuthenticated, pacientesController.getLast)
+router.get("/ultimo", isAuthenticated, pacientesController.getLast);
 
-router.post('/', isAuthenticated, pacientesController.create)
+router.post("/", isAuthenticated, pacientesController.create);
 
-router.put('/:pacPacNumero', isAuthenticated, pacientesController.update)
+router.put("/:numeroPaciente", isAuthenticated, pacientesController.update);
 
-module.exports = router
+router.get(
+  "/datos_contacto_actualizados",
+  isAuthenticated,
+  pacientesController.getPacientesActualizados
+);
+
+router.put(
+  "/actualizar_datos_contacto_y_eliminar_solicitud/:numeroPaciente",
+  isAuthenticated,
+  pacientesController.updateAndDeleteSolicitud
+);
+
+module.exports = router;
