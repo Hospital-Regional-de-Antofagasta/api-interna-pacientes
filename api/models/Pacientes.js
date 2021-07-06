@@ -26,6 +26,7 @@ const Paciente = mongoose.model(
       correoCuerpo: String,
       correoExtension: String,
       datosContactoActualizados: { type: Boolean, default: false },
+      fechaFallecimiento: Date,
     },
     { timestamps: true }
   )
