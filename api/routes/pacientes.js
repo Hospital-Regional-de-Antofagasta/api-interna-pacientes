@@ -11,13 +11,13 @@ router.post("/", isAuthenticated, pacientesController.create);
 router.put("/:numeroPaciente", isAuthenticated, pacientesController.update);
 
 router.get(
-  "/datos_contacto_actualizados",
+  "/datos-contacto-actualizados",
   isAuthenticated,
   pacientesController.getPacientesActualizados
 );
 
 router.put(
-  "/actualizar_datos_contacto_y_eliminar_solicitud/:numeroPaciente",
+  "/actualizar-datos-contacto-y-eliminar-solicitud/:numeroPaciente",
   isAuthenticated,
   pacientesController.updateAndDeleteSolicitud
 );

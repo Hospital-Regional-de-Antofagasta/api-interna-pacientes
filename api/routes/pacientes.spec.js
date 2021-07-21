@@ -37,14 +37,14 @@ const pacienteGuardar = {
   apellidoPaterno: "Apellido Paterno Paciente",
   apellidoMaterno: "Apellido Materno Paciente",
   nombre: "Nombre Paciente",
-  direccionCalle: "Calle",
+  direccion: "Calle",
   direccionNumero: "1234",
-  direccionDepartamento: "Departamento",
+  detallesDireccion: "Departamento 10",
   direccionPoblacion: "Poblacion",
   codigoComuna: "Comuna",
   codigoCiudad: "Ciudad",
   codigoRegion: "Region",
-  fono: "123412",
+  telefonoFijo: "123412",
   telefonoMovil: "12341234",
   correoCuerpo: "correo",
   correoExtension: "@correo.com",
@@ -56,26 +56,26 @@ const pacienteActualizar = {
   apellidoPaterno: "LAZO",
   apellidoMaterno: "ZAMBRA",
   nombre: "JACQUELINE CLOTILDE",
-  direccionCalle: "calle",
+  direccion: "calle",
   direccionNumero: "123",
-  direccionDepartamento: "21",
+  detallesDireccion: "casa 21",
   direccionPoblacion: "poblacion",
   codigoComuna: "comuna",
   codigoCiudad: "ciudad",
   codigoRegion: "region",
-  fono: "123123",
+  telefonoFijo: "123123",
   telefonoMovil: "12341234",
   correoCuerpo: "correo",
   correoExtension: "@correo.com",
 };
 
 describe("Endpoints pacientes", () => {
-  describe("Get last paciente", () => {
+  describe("GET /hradb-a-mongodb/pacientes/ultimo", () => {
     // test autorizacion
     it("Should not get last paciente", async (done) => {
       // ejecutar endpoint
       const response = await request
-        .get("/hra/hradb_a_mongodb/pacientes/ultimo")
+        .get("/hradb-a-mongodb/pacientes/ultimo")
         .set("Authorization", "no-token");
       // verificar que retorno el status code correcto
       expect(response.status).toBe(401);
@@ -89,7 +89,7 @@ describe("Endpoints pacientes", () => {
       await Pacientes.deleteMany();
       // ejecutar endpoint
       const response = await request
-        .get("/hra/hradb_a_mongodb/pacientes/ultimo")
+        .get("/hradb-a-mongodb/pacientes/ultimo")
         .set("Authorization", token);
       // verificar que retorno el status code correcto
       expect(response.status).toBe(200);
@@ -103,7 +103,7 @@ describe("Endpoints pacientes", () => {
       await Pacientes.create(pacienteGuardar);
       // ejecutar endpoint
       const response = await request
-        .get("/hra/hradb_a_mongodb/pacientes/ultimo")
+        .get("/hradb-a-mongodb/pacientes/ultimo")
         .set("Authorization", token);
       // verificar que retorno el status code correcto
       expect(response.status).toBe(200);
@@ -140,12 +140,12 @@ describe("Endpoints pacientes", () => {
       done();
     });
   });
-  describe("Save paciente", () => {
+  describe("POST /hradb-a-mongodb/pacientes/", () => {
     // test autorizacion
     it("Should not save paciente", async (done) => {
       // ejecutar endpoint
       const response = await request
-        .post("/hra/hradb_a_mongodb/pacientes/")
+        .post("/hradb-a-mongodb/pacientes/")
         .set("Authorization", "no-token")
         .send(pacienteGuardar);
       // obtener el paciente que no se guardo
@@ -165,7 +165,7 @@ describe("Endpoints pacientes", () => {
     it("Should save paciente", async (done) => {
       // ejecutar endpoint
       const response = await request
-        .post("/hra/hradb_a_mongodb/pacientes/")
+        .post("/hradb-a-mongodb/pacientes/")
         .set("Authorization", token)
         .send(pacienteGuardar);
       // obtener el paciente que se guardo
@@ -186,14 +186,14 @@ describe("Endpoints pacientes", () => {
         pacienteGuardar.apellidoMaterno
       );
       expect(pacienteObtenido.nombre).toBe(pacienteGuardar.nombre);
-      expect(pacienteObtenido.direccionCalle).toBe(
-        pacienteGuardar.direccionCalle
+      expect(pacienteObtenido.direccion).toBe(
+        pacienteGuardar.direccion
       );
       expect(pacienteObtenido.direccionNumero).toBe(
         pacienteGuardar.direccionNumero
       );
-      expect(pacienteObtenido.direccionDepartamento).toBe(
-        pacienteGuardar.direccionDepartamento
+      expect(pacienteObtenido.detallesDireccion).toBe(
+        pacienteGuardar.detallesDireccion
       );
       expect(pacienteObtenido.direccionPoblacion).toBe(
         pacienteGuardar.direccionPoblacion
@@ -201,7 +201,7 @@ describe("Endpoints pacientes", () => {
       expect(pacienteObtenido.codigoComuna).toBe(pacienteGuardar.codigoComuna);
       expect(pacienteObtenido.codigoCiudad).toBe(pacienteGuardar.codigoCiudad);
       expect(pacienteObtenido.codigoRegion).toBe(pacienteGuardar.codigoRegion);
-      expect(pacienteObtenido.fono).toBe(pacienteGuardar.fono);
+      expect(pacienteObtenido.telefonoFijo).toBe(pacienteGuardar.telefonoFijo);
       expect(pacienteObtenido.telefonoMovil).toBe(
         pacienteGuardar.telefonoMovil
       );
@@ -213,13 +213,13 @@ describe("Endpoints pacientes", () => {
       done();
     });
   });
-  describe("Update paciente", () => {
+  describe("PUT /hradb-a-mongodb/pacientes/:numeroPaciente", () => {
     // test autorizacion
     it("Should not update paciente", async (done) => {
       // ejecutar endpoint
       const response = await request
         .put(
-          `/hra/hradb_a_mongodb/pacientes/${pacienteActualizar.numeroPaciente}`
+          `/hradb-a-mongodb/pacientes/${pacienteActualizar.numeroPaciente}`
         )
         .set("Authorization", "no-token")
         .send(pacienteActualizar);
@@ -235,7 +235,7 @@ describe("Endpoints pacientes", () => {
       // ejecutar endpoint
       const response = await request
         .put(
-          `/hra/hradb_a_mongodb/pacientes/${pacienteActualizar.numeroPaciente}`
+          `/hradb-a-mongodb/pacientes/${pacienteActualizar.numeroPaciente}`
         )
         .set("Authorization", token)
         .send(pacienteActualizar);
@@ -257,14 +257,14 @@ describe("Endpoints pacientes", () => {
         pacienteActualizar.apellidoMaterno
       );
       expect(pacienteObtenido.nombre).toBe(pacienteActualizar.nombre);
-      expect(pacienteObtenido.direccionCalle).toBe(
-        pacienteActualizar.direccionCalle
+      expect(pacienteObtenido.direccion).toBe(
+        pacienteActualizar.direccion
       );
       expect(pacienteObtenido.direccionNumero).toBe(
         pacienteActualizar.direccionNumero
       );
-      expect(pacienteObtenido.direccionDepartamento).toBe(
-        pacienteActualizar.direccionDepartamento
+      expect(pacienteObtenido.detallesDireccion).toBe(
+        pacienteActualizar.detallesDireccion
       );
       expect(pacienteObtenido.direccionPoblacion).toBe(
         pacienteActualizar.direccionPoblacion
@@ -278,7 +278,7 @@ describe("Endpoints pacientes", () => {
       expect(pacienteObtenido.codigoRegion).toBe(
         pacienteActualizar.codigoRegion
       );
-      expect(pacienteObtenido.fono).toBe(pacienteActualizar.fono);
+      expect(pacienteObtenido.telefonoFijo).toBe(pacienteActualizar.telefonoFijo);
       expect(pacienteObtenido.telefonoMovil).toBe(
         pacienteActualizar.telefonoMovil
       );
@@ -292,10 +292,10 @@ describe("Endpoints pacientes", () => {
       done();
     });
   });
-  describe("Get updated datos de contacto de pacientes", () => {
+  describe("GET /hradb-a-mongodb/pacientes/datos-contacto-actualizados", () => {
     it("Should not get updated datos contacto paciente", async (done) => {
       const response = await request
-        .get("/hra/hradb_a_mongodb/pacientes/datos_contacto_actualizados")
+        .get("/hradb-a-mongodb/pacientes/datos-contacto-actualizados")
         .set("Authorization", "no-token");
 
       expect(response.status).toBe(401);
@@ -306,7 +306,7 @@ describe("Endpoints pacientes", () => {
     it("Should get updated datos contacto paciente from empty database", async (done) => {
       await PacientesActualizados.deleteMany();
       const response = await request
-        .get("/hra/hradb_a_mongodb/pacientes/datos_contacto_actualizados")
+        .get("/hradb-a-mongodb/pacientes/datos-contacto-actualizados")
         .set("Authorization", token);
 
       expect(response.status).toBe(200);
@@ -316,7 +316,7 @@ describe("Endpoints pacientes", () => {
     });
     it("Should get updated datos contacto paciente", async (done) => {
       const response = await request
-        .get("/hra/hradb_a_mongodb/pacientes/datos_contacto_actualizados")
+        .get("/hradb-a-mongodb/pacientes/datos-contacto-actualizados")
         .set("Authorization", token);
 
       expect(response.status).toBe(200);
@@ -325,11 +325,11 @@ describe("Endpoints pacientes", () => {
       done();
     });
   });
-  describe("Update datos de contacto de pacientes and delete respective pacientes_actualizados", () => {
+  describe("PUT /hradb-a-mongodb/pacientes/actualizar-datos-contacto-y-eliminar-solicitud/:numeroPaciente", () => {
     it("Should not update datos contacto paciente", async (done) => {
       const response = await request
         .put(
-          "/hra/hradb_a_mongodb/pacientes/actualizar_datos_contacto_y_eliminar_solicitud/16"
+          "/hradb-a-mongodb/pacientes/actualizar-datos-contacto-y-eliminar-solicitud/16"
         )
         .set("Authorization", "no-token");
 
@@ -341,7 +341,7 @@ describe("Endpoints pacientes", () => {
     it("Should not update datos contacto paciente from a paciente that does not exists", async (done) => {
       const response = await request
         .put(
-          "/hra/hradb_a_mongodb/pacientes/actualizar_datos_contacto_y_eliminar_solicitud/17"
+          "/hradb-a-mongodb/pacientes/actualizar-datos-contacto-y-eliminar-solicitud/17"
         )
         .set("Authorization", token);
 
@@ -353,7 +353,7 @@ describe("Endpoints pacientes", () => {
     it("Should update datos contacto paciente and delete respective pacientes_actualizados", async (done) => {
       const response = await request
         .put(
-          "/hra/hradb_a_mongodb/pacientes/actualizar_datos_contacto_y_eliminar_solicitud/19"
+          "/hradb-a-mongodb/pacientes/actualizar-datos-contacto-y-eliminar-solicitud/19"
         )
         .set("Authorization", token);
 
@@ -367,7 +367,7 @@ describe("Endpoints pacientes", () => {
 
       expect(response.status).toBe(204);
 
-      expect(pacienteActualizado.direccionCalle).toBe("calle");
+      expect(pacienteActualizado.direccion).toBe("nombre pasaje");
       expect(solicitudPacienteActualizado).toBeFalsy();
 
       done();
