@@ -14,6 +14,6 @@ mongoose.connect(process.env.MONGO_URI, {
   useUnifiedTopology: true,
 });
 
-app.use("/hra/hradb_a_mongodb/pacientes", pacientes);
+app.use("/hradb-a-mongodb/pacientes", pacientes);
 
 module.exports = app;

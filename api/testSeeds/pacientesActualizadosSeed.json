@@ -1,29 +1,29 @@
 [
   {
       "numeroPaciente":"16",
-      "direccionCalle":"calle",
+      "direccion":"nombre de calle",
       "direccionNumero":"123",
-      "direccionDepartamento":"203",
+      "detallesDireccion":"casa 20",
       "direccionPoblacion":"poblacion",
       "codigoComuna":"01",
       "codigoCiudad":"03",
       "codigoRegion":"02",
-      "fono":"123456",
-      "telefonoMovil":"945679864",
+      "telefonoFijo":"123456",
+      "telefonoMovil":"94567986",
       "correoCuerpo":"correo",
       "correoExtension":"correo.com"
   },
   {
       "numeroPaciente":"19",
-      "direccionCalle":"calle",
+      "direccion":"nombre pasaje",
       "direccionNumero":"1234",
-      "direccionDepartamento":"907",
+      "detallesDireccion":"depto 303",
       "direccionPoblacion":"poblacion",
       "codigoComuna":"02",
       "codigoCiudad":"03",
       "codigoRegion":"01",
-      "fono":"789456",
-      "telefonoMovil":"968459742",
+      "telefonoFijo":"789456",
+      "telefonoMovil":"96845974",
       "correoCuerpo":"correo",
       "correoExtension":"correo.com"
   }
