@@ -15,7 +15,8 @@
         "telefonoFijo":"",
         "telefonoMovil":"",
         "correoCuerpo":"",
-        "correoExtension":""
+        "correoExtension":"",
+        "nombreSocial":null
     },
     {
         "numeroPaciente":"19",
@@ -33,7 +34,8 @@
         "telefonoFijo":"",
         "telefonoMovil":"",
         "correoCuerpo":"",
-        "correoExtension":""
+        "correoExtension":"",
+        "nombreSocial":"nombre"
     },
     {
         "numeroPaciente":"20",
@@ -51,6 +53,7 @@
         "telefonoFijo":"",
         "telefonoMovil":" 94924483",
         "correoCuerpo":null,
-        "correoExtension":null
+        "correoExtension":null,
+        "nombreSocial":null
     }
 ]

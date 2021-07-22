@@ -48,6 +48,7 @@ const pacienteGuardar = {
   telefonoMovil: "12341234",
   correoCuerpo: "correo",
   correoExtension: "@correo.com",
+  nombreSocial: null,
 };
 
 const pacienteActualizar = {
@@ -67,6 +68,7 @@ const pacienteActualizar = {
   telefonoMovil: "12341234",
   correoCuerpo: "correo",
   correoExtension: "@correo.com",
+  nombreSocial: "social",
 };
 
 describe("Endpoints pacientes", () => {
@@ -136,6 +138,7 @@ describe("Endpoints pacientes", () => {
       expect(response.body.correoExtension).toBe(
         pacienteGuardar.correoExtension
       );
+      expect(response.body.nombreSocial).toBe(pacienteGuardar.nombreSocial)
 
       done();
     });
@@ -206,9 +209,8 @@ describe("Endpoints pacientes", () => {
         pacienteGuardar.telefonoMovil
       );
       expect(pacienteObtenido.correoCuerpo).toBe(pacienteGuardar.correoCuerpo);
-      expect(pacienteObtenido.correoExtension).toBe(
-        pacienteGuardar.correoExtension
-      );
+      expect(pacienteObtenido.correoExtension).toBe(pacienteGuardar.correoExtension);
+      expect(pacienteObtenido.nombreSocial).toBe(pacienteGuardar.nombreSocial);
 
       done();
     });
@@ -287,8 +289,8 @@ describe("Endpoints pacientes", () => {
       );
       expect(pacienteObtenido.correoExtension).toBe(
         pacienteActualizar.correoExtension
-      );
-
+      );      
+      expect(pacienteObtenido.nombreSocial).toBe(pacienteActualizar.nombreSocial);
       done();
     });
   });
