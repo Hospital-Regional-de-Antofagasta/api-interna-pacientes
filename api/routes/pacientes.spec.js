@@ -1,5 +1,5 @@
 const supertest = require("supertest");
-const app = require("../index");
+const app = require("../app");
 const mongoose = require("mongoose");
 const Pacientes = require("../models/Pacientes");
 const PacientesActualizados = require("../models/PacientesActualizados");
@@ -138,7 +138,7 @@ describe("Endpoints pacientes", () => {
       expect(response.body.correoExtension).toBe(
         pacienteGuardar.correoExtension
       );
-      expect(response.body.nombreSocial).toBe(pacienteGuardar.nombreSocial)
+      expect(response.body.nombreSocial).toBe(pacienteGuardar.nombreSocial);
 
       done();
     });
@@ -189,9 +189,7 @@ describe("Endpoints pacientes", () => {
         pacienteGuardar.apellidoMaterno
       );
       expect(pacienteObtenido.nombre).toBe(pacienteGuardar.nombre);
-      expect(pacienteObtenido.direccion).toBe(
-        pacienteGuardar.direccion
-      );
+      expect(pacienteObtenido.direccion).toBe(pacienteGuardar.direccion);
       expect(pacienteObtenido.direccionNumero).toBe(
         pacienteGuardar.direccionNumero
       );
@@ -209,7 +207,9 @@ describe("Endpoints pacientes", () => {
         pacienteGuardar.telefonoMovil
       );
       expect(pacienteObtenido.correoCuerpo).toBe(pacienteGuardar.correoCuerpo);
-      expect(pacienteObtenido.correoExtension).toBe(pacienteGuardar.correoExtension);
+      expect(pacienteObtenido.correoExtension).toBe(
+        pacienteGuardar.correoExtension
+      );
       expect(pacienteObtenido.nombreSocial).toBe(pacienteGuardar.nombreSocial);
 
       done();
@@ -220,9 +220,7 @@ describe("Endpoints pacientes", () => {
     it("Should not update paciente", async (done) => {
       // ejecutar endpoint
       const response = await request
-        .put(
-          `/hradb-a-mongodb/pacientes/${pacienteActualizar.numeroPaciente}`
-        )
+        .put(`/hradb-a-mongodb/pacientes/${pacienteActualizar.numeroPaciente}`)
         .set("Authorization", "no-token")
         .send(pacienteActualizar);
       // verificar que retorno el status code correcto
@@ -236,9 +234,7 @@ describe("Endpoints pacientes", () => {
     it("Should update paciente", async (done) => {
       // ejecutar endpoint
       const response = await request
-        .put(
-          `/hradb-a-mongodb/pacientes/${pacienteActualizar.numeroPaciente}`
-        )
+        .put(`/hradb-a-mongodb/pacientes/${pacienteActualizar.numeroPaciente}`)
         .set("Authorization", token)
         .send(pacienteActualizar);
       // obtener el paciente que se acualizo
@@ -259,9 +255,7 @@ describe("Endpoints pacientes", () => {
         pacienteActualizar.apellidoMaterno
       );
       expect(pacienteObtenido.nombre).toBe(pacienteActualizar.nombre);
-      expect(pacienteObtenido.direccion).toBe(
-        pacienteActualizar.direccion
-      );
+      expect(pacienteObtenido.direccion).toBe(pacienteActualizar.direccion);
       expect(pacienteObtenido.direccionNumero).toBe(
         pacienteActualizar.direccionNumero
       );
@@ -280,7 +274,9 @@ describe("Endpoints pacientes", () => {
       expect(pacienteObtenido.codigoRegion).toBe(
         pacienteActualizar.codigoRegion
       );
-      expect(pacienteObtenido.telefonoFijo).toBe(pacienteActualizar.telefonoFijo);
+      expect(pacienteObtenido.telefonoFijo).toBe(
+        pacienteActualizar.telefonoFijo
+      );
       expect(pacienteObtenido.telefonoMovil).toBe(
         pacienteActualizar.telefonoMovil
       );
@@ -289,8 +285,10 @@ describe("Endpoints pacientes", () => {
       );
       expect(pacienteObtenido.correoExtension).toBe(
         pacienteActualizar.correoExtension
-      );      
-      expect(pacienteObtenido.nombreSocial).toBe(pacienteActualizar.nombreSocial);
+      );
+      expect(pacienteObtenido.nombreSocial).toBe(
+        pacienteActualizar.nombreSocial
+      );
       done();
     });
   });
