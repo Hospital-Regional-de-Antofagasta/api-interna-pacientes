@@ -1,6 +1,18 @@
 [
     {
-        "numeroPaciente":"16",
+        "_id": "000000000016",
+        "numerosPaciente": [
+            {
+              "numero": 16,
+              "codigoEstablecimiento": "E01",
+              "nombreEstablecimiento": "Hospital Regional de Antofagasta"
+            },
+            {
+              "numero": 15,
+              "codigoEstablecimiento": "E02",
+              "nombreEstablecimiento": "Hospital de Calama"
+            }
+          ],
         "rut":"10771131-7",
         "apellidoPaterno":"LAZO",
         "apellidoMaterno":"ZAMBRA",
@@ -19,7 +31,19 @@
         "nombreSocial":null
     },
     {
-        "numeroPaciente":"19",
+        "_id": "000000000019",
+        "numerosPaciente": [
+            {
+              "numero": 19,
+              "codigoEstablecimiento": "E01",
+              "nombreEstablecimiento": "Hospital Regional de Antofagasta"
+            },
+            {
+              "numero": 18,
+              "codigoEstablecimiento": "E02",
+              "nombreEstablecimiento": "Hospital de Calama"
+            }
+          ],
         "rut":"17724699-9",
         "apellidoPaterno":"RIVERA",
         "apellidoMaterno":"ARANCIBIA",
@@ -38,7 +62,19 @@
         "nombreSocial":"nombre"
     },
     {
-        "numeroPaciente":"20",
+        "_id": "000000000020",
+        "numerosPaciente": [
+            {
+              "numero": 20,
+              "codigoEstablecimiento": "E01",
+              "nombreEstablecimiento": "Hospital Regional de Antofagasta"
+            },
+            {
+              "numero": 19,
+              "codigoEstablecimiento": "E02",
+              "nombreEstablecimiento": "Hospital de Calama"
+            }
+          ],
         "rut":"18502151-3",
         "apellidoPaterno":"RIVERA",
         "apellidoMaterno":"ARANCIBIA",

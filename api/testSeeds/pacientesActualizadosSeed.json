@@ -1,6 +1,12 @@
 [
   {
-      "numeroPaciente":"16",
+    "idPaciente":"000000000016",
+    "numeroPaciente":
+      {
+        "numero": 16,
+        "codigoEstablecimiento": "E01",
+        "nombreEstablecimiento": "Hospital Regional de Antofagasta"
+      },
       "direccion":"nombre de calle",
       "direccionNumero":"123",
       "detallesDireccion":"casa 20",
@@ -14,7 +20,12 @@
       "correoExtension":"correo.com"
   },
   {
-      "numeroPaciente":"19",
+      "idPaciente":"000000000019",
+      "numeroPaciente":{
+        "numero": 19,
+        "codigoEstablecimiento": "E01",
+        "nombreEstablecimiento": "Hospital Regional de Antofagasta"
+      },
       "direccion":"nombre pasaje",
       "direccionNumero":"1234",
       "detallesDireccion":"depto 303",

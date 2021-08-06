@@ -5,8 +5,10 @@ const PacientesActualizados = require("../models/PacientesActualizados");
 // obtener el ultimo paciente ingresado a la bd
 exports.getLast = async (req, res) => {
   try {
-    const paciente = await Pacientes.findOne()
-      .sort({ numeroPaciente: -1 })
+    const paciente = await Pacientes.findOne({
+      "numerosPaciente.codigoEstablecimiento": req.params.codigoEstablecimiento, //Código E01 es el Hospital Regional de Antofagasta
+    })
+      .sort({ "numerosPaciente.numero": -1 })
       .exec();
     res.status(200).send(paciente);
   } catch (error) {
@@ -31,7 +33,10 @@ exports.create = async (req, res) => {
 // actualizar paciente en la bd recibiendo el numero de paciente
 exports.update = async (req, res) => {
   try {
-    const filter = { numeroPaciente: req.params.numeroPaciente };
+    const filter = {
+      "numerosPaciente.numero": req.params.numeroPaciente,
+      "numerosPaciente.codigoEstablecimiento": req.params.codigoEstablecimiento,
+    };
     const update = req.body;
     await Pacientes.updateOne(filter, update).exec();
     res.sendStatus(204);
@@ -44,7 +49,9 @@ exports.update = async (req, res) => {
 
 exports.getPacientesActualizados = async (req, res) => {
   try {
-    const pacientesActualizados = await PacientesActualizados.find().exec();
+    const pacientesActualizados = await PacientesActualizados.find({
+      "numeroPaciente.codigoEstablecimiento": req.params.codigoEstablecimiento,
+    }).exec();
     res.status(200).send(pacientesActualizados);
   } catch (error) {
     res.status(500).send({
@@ -55,25 +62,23 @@ exports.getPacientesActualizados = async (req, res) => {
 
 exports.updateAndDeleteSolicitud = async (req, res) => {
   try {
-    const numeroPaciente = req.params.numeroPaciente;
-    const pacienteActualizado = await PacientesActualizados.findOne({
-      numeroPaciente,
-    }).exec();
+    const filtro = {
+      "numeroPaciente.numero": req.params.numeroPaciente,
+      "numeroPaciente.codigoEstablecimiento": req.params.codigoEstablecimiento,
+    };
+    const pacienteActualizado = await PacientesActualizados.findOne(
+      filtro
+    ).exec();
     if (!pacienteActualizado)
       return res.status(404).send({ respuesta: "Paciente no encontrado." });
     // obtener solo los campos que se debe actualizar
-    const {
-      _id,
-      __v,
-      createdAt,
-      updatedAt,
-      ...datosPacienteActualizado
-    } = pacienteActualizado.toObject();
+    const { _id, __v, createdAt, updatedAt, ...datosPacienteActualizado } =
+      pacienteActualizado.toObject();
     await Paciente.updateOne(
-      { numeroPaciente },
+      { _id: pacienteActualizado.idPaciente },
       datosPacienteActualizado
     ).exec();
-    await PacientesActualizados.deleteOne({ numeroPaciente }).exec();
+    await PacientesActualizados.deleteOne({ filtro }).exec();
     res.sendStatus(204);
   } catch (error) {
     res.status(500).send({
