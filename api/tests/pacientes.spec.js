@@ -376,11 +376,11 @@ describe("Endpoints pacientes", () => {
       done();
     });
   });
-  describe("PUT /hradb-a-mongodb/pacientes/actualizar-datos-contacto-y-eliminar-solicitud/:numeroPaciente/:codigoEstablecimiento", () => {
+  describe("PUT /hradb-a-mongodb/pacientes/actualizar-datos-contacto-y-eliminar-solicitud/:codigoEstablecimiento/:numeroPaciente", () => {
     it("Should not update datos contacto paciente", async (done) => {
       const response = await request
         .put(
-          "/hradb-a-mongodb/pacientes/actualizar-datos-contacto-y-eliminar-solicitud/16/E01"
+          "/hradb-a-mongodb/pacientes/actualizar-datos-contacto-y-eliminar-solicitud/E01/16"
         )
         .set("Authorization", "no-token");
 
@@ -392,7 +392,7 @@ describe("Endpoints pacientes", () => {
     it("Should not update datos contacto paciente from a paciente that does not exists", async (done) => {
       const response = await request
         .put(
-          "/hradb-a-mongodb/pacientes/actualizar-datos-contacto-y-eliminar-solicitud/17/E01"
+          "/hradb-a-mongodb/pacientes/actualizar-datos-contacto-y-eliminar-solicitud/E01/17"
         )
         .set("Authorization", token);
 
@@ -404,7 +404,7 @@ describe("Endpoints pacientes", () => {
     it("Should update datos contacto paciente and delete respective pacientes_actualizados", async (done) => {
       const response = await request
         .put(
-          "/hradb-a-mongodb/pacientes/actualizar-datos-contacto-y-eliminar-solicitud/19/E01"
+          "/hradb-a-mongodb/pacientes/actualizar-datos-contacto-y-eliminar-solicitud/E01/19"
         )
         .set("Authorization", token);
 

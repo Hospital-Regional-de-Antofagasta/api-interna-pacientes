@@ -25,7 +25,7 @@ router.get(
 );
 
 router.put(
-  "/actualizar-datos-contacto-y-eliminar-solicitud/:numeroPaciente/:codigoEstablecimiento",
+  "/actualizar-datos-contacto-y-eliminar-solicitud/:codigoEstablecimiento/:numeroPaciente",
   isAuthenticated,
   pacientesController.updateAndDeleteSolicitud
 );
