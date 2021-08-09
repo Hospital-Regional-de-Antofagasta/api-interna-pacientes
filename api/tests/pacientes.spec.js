@@ -254,13 +254,13 @@ describe("Endpoints pacientes", () => {
       done();
     });
   });
-  describe("PUT /hradb-a-mongodb/pacientes/:numeroPaciente/:codigoEstablecimiento", () => {
+  describe("PUT /hradb-a-mongodb/pacientes/:codigoEstablecimiento/:numeroPaciente", () => {
     // test autorizacion
     it("Should not update paciente", async (done) => {
       // ejecutar endpoint
       const response = await request
         .put(
-          `/hradb-a-mongodb/pacientes/${pacienteActualizar.numerosPaciente[0].numero}/${pacienteActualizar.numerosPaciente[0].codigoEstablecimiento}`
+          `/hradb-a-mongodb/pacientes/${pacienteActualizar.numerosPaciente[0].codigoEstablecimiento}/${pacienteActualizar.numerosPaciente[0].numero}`
         )
         .set("Authorization", "no-token")
         .send(pacienteActualizar);
@@ -276,7 +276,7 @@ describe("Endpoints pacientes", () => {
       // ejecutar endpoint
       const response = await request
         .put(
-          `/hradb-a-mongodb/pacientes/${pacienteActualizar.numerosPaciente[0].numero}/${pacienteActualizar.numerosPaciente[0].codigoEstablecimiento}`
+          `/hradb-a-mongodb/pacientes/${pacienteActualizar.numerosPaciente[0].codigoEstablecimiento}/${pacienteActualizar.numerosPaciente[0].numero}`
         )
         .set("Authorization", token)
         .send(pacienteActualizar);
