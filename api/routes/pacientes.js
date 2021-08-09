@@ -13,9 +13,15 @@ router.get(
 router.post("", isAuthenticated, pacientesController.create);
 
 router.put(
-  "/:numeroPaciente/:codigoEstablecimiento",
+  "/:codigoEstablecimiento/:numeroPaciente",
   isAuthenticated,
   pacientesController.update
+);
+
+router.delete(
+  "/:codigoEstablecimiento/:numeroPaciente",
+  isAuthenticated,
+  pacientesController.delete
 );
 
 router.get(

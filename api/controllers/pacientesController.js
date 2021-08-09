@@ -30,7 +30,7 @@ exports.create = async (req, res) => {
   }
 };
 
-// actualizar paciente en la bd recibiendo el numero de paciente
+// actualizar paciente en la bd 
 exports.update = async (req, res) => {
   try {
     const filter = {
@@ -43,6 +43,23 @@ exports.update = async (req, res) => {
   } catch (error) {
     res.status(500).send({
       respuesta: `Pacientes update: ${error.name} - ${error.message}`,
+    });
+  }
+};
+
+// eliminar paciente en la bd 
+exports.delete = async (req, res) => {
+  try {
+    const filter = {
+      "numerosPaciente.numero": req.params.numeroPaciente,
+      "numerosPaciente.codigoEstablecimiento": req.params.codigoEstablecimiento,
+    };
+    const update = req.body;
+    await Pacientes.deleteOne(filter, update).exec();
+    res.sendStatus(204);
+  } catch (error) {
+    res.status(500).send({
+      respuesta: `Pacientes delete: ${error.name} - ${error.message}`,
     });
   }
 };

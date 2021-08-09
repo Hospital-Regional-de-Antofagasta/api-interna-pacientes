@@ -254,13 +254,13 @@ describe("Endpoints pacientes", () => {
       done();
     });
   });
-  describe("PUT /hradb-a-mongodb/pacientes/:numeroPaciente/:codigoEstablecimiento", () => {
+  describe("PUT /hradb-a-mongodb/pacientes/:codigoEstablecimiento/:numeroPaciente", () => {
     // test autorizacion
     it("Should not update paciente", async (done) => {
       // ejecutar endpoint
       const response = await request
         .put(
-          `/hradb-a-mongodb/pacientes/${pacienteActualizar.numerosPaciente[0].numero}/${pacienteActualizar.numerosPaciente[0].codigoEstablecimiento}`
+          `/hradb-a-mongodb/pacientes/${pacienteActualizar.numerosPaciente[0].codigoEstablecimiento}/${pacienteActualizar.numerosPaciente[0].numero}`
         )
         .set("Authorization", "no-token")
         .send(pacienteActualizar);
@@ -276,7 +276,7 @@ describe("Endpoints pacientes", () => {
       // ejecutar endpoint
       const response = await request
         .put(
-          `/hradb-a-mongodb/pacientes/${pacienteActualizar.numerosPaciente[0].numero}/${pacienteActualizar.numerosPaciente[0].codigoEstablecimiento}`
+          `/hradb-a-mongodb/pacientes/${pacienteActualizar.numerosPaciente[0].codigoEstablecimiento}/${pacienteActualizar.numerosPaciente[0].numero}`
         )
         .set("Authorization", token)
         .send(pacienteActualizar);
@@ -340,6 +340,45 @@ describe("Endpoints pacientes", () => {
       expect(pacienteObtenido.nombreSocial).toBe(
         pacienteActualizar.nombreSocial
       );
+      done();
+    });
+  });
+  describe("DELETE /hradb-a-mongodb/pacientes/:codigoEstablecimiento/:numeroPaciente", () => {
+    // test autorizacion
+    it("Should not delete paciente", async (done) => {
+      // ejecutar endpoint
+      const response = await request
+        .delete(
+          `/hradb-a-mongodb/pacientes/${pacienteActualizar.numerosPaciente[0].codigoEstablecimiento}/${pacienteActualizar.numerosPaciente[0].numero}`
+        )
+        .set("Authorization", "no-token")
+        .send(pacienteActualizar);
+      // verificar que retorno el status code correcto
+      expect(response.status).toBe(401);
+      // debe entregar el mensaje
+      expect(response.body.respuesta).toBe("Acceso no autorizado.");
+
+      done();
+    });
+    // test eliminar paciente
+    it("Should delete paciente", async (done) => {
+      // ejecutar endpoint
+      const response = await request
+        .delete(
+          `/hradb-a-mongodb/pacientes/${pacienteActualizar.numerosPaciente[0].codigoEstablecimiento}/${pacienteActualizar.numerosPaciente[0].numero}`
+        )
+        .set("Authorization", token)
+        .send(pacienteActualizar);
+      // obtener el paciente que se acualizo
+      const pacienteObtenido = await Pacientes.findOne({
+        "numerosPaciente.numero": pacienteActualizar.numerosPaciente[0].numero,
+        "numerosPaciente.codigoEstablecimiento":
+          pacienteActualizar.numerosPaciente[0].codigoEstablecimiento,
+      });
+      // verificar que retorno el status code correcto
+      expect(response.status).toBe(204);
+      expect(pacienteObtenido).toBeFalsy();
+
       done();
     });
   });
@@ -409,8 +448,8 @@ describe("Endpoints pacientes", () => {
         .set("Authorization", token);
 
       const pacienteActualizado = await Pacientes.findOne({
-        'numerosPaciente.numero': 19,
-        'numerosPaciente.codigoEstablecimiento':'E01',
+        "numerosPaciente.numero": 19,
+        "numerosPaciente.codigoEstablecimiento": "E01",
       }).exec();
 
       const solicitudPacienteActualizado = await PacientesActualizados.findOne({
