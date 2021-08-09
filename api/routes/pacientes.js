@@ -10,7 +10,7 @@ router.get(
   pacientesController.getLast
 );
 
-router.post("/", isAuthenticated, pacientesController.create);
+router.post("", isAuthenticated, pacientesController.create);
 
 router.put(
   "/:numeroPaciente/:codigoEstablecimiento",

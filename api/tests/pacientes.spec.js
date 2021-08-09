@@ -167,12 +167,12 @@ describe("Endpoints pacientes", () => {
       done();
     });
   });
-  describe("POST /hradb-a-mongodb/pacientes/", () => {
+  describe("POST /hradb-a-mongodb/pacientes", () => {
     // test autorizacion
     it("Should not save paciente", async (done) => {
       // ejecutar endpoint
       const response = await request
-        .post("/hradb-a-mongodb/pacientes/")
+        .post("/hradb-a-mongodb/pacientes")
         .set("Authorization", "no-token")
         .send(pacienteGuardar);
       // obtener el paciente que no se guardo
@@ -192,7 +192,7 @@ describe("Endpoints pacientes", () => {
     it("Should save paciente", async (done) => {
       // ejecutar endpoint
       const response = await request
-        .post("/hradb-a-mongodb/pacientes/")
+        .post("/hradb-a-mongodb/pacientes")
         .set("Authorization", token)
         .send(pacienteGuardar);
       // obtener el paciente que se guardo
