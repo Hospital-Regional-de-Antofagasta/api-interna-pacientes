@@ -18,6 +18,12 @@ router.put(
   pacientesController.update
 );
 
+router.delete(
+  "/:codigoEstablecimiento/:numeroPaciente",
+  isAuthenticated,
+  pacientesController.delete
+);
+
 router.get(
   "/datos-contacto-actualizados/:codigoEstablecimiento",
   isAuthenticated,
