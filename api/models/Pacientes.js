@@ -8,8 +8,8 @@ const Paciente = mongoose.model(
       numerosPaciente: [
         {
           _id: false,
-          numero: {type: Number, require: true, unique: true},
-          codigoEstablecimiento: {type: String, require: true, unique: true},
+          numero: {type: Number, require: true},
+          codigoEstablecimiento: {type: String, require: true},
           nombreEstablecimiento: String,
         }
       ],
