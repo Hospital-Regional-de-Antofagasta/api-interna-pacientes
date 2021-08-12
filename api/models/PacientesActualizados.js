@@ -24,7 +24,7 @@ const PacientesActualizados = mongoose.model(
       correoExtension: String,
     },
     { timestamps: true }
-  )
+  ).index({'numeroPaciente.numero':1,'numeroPaciente.codigoEstablecimiento':1},{unique: true})
 );
 
 module.exports = PacientesActualizados;

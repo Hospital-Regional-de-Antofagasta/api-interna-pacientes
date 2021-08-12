@@ -33,7 +33,7 @@ const Paciente = mongoose.model(
       nombreSocial: String,
     },
     { timestamps: true }
-  )
+  ).index({'numerosPaciente.numero':1,'numerosPaciente.codigoEstablecimiento':1},{unique: true})
 );
 
 module.exports = Paciente;
