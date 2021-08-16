@@ -37,7 +37,25 @@ exports.update = async (req, res) => {
       "numerosPaciente.numero": req.params.numeroPaciente,
       "numerosPaciente.codigoEstablecimiento": req.params.codigoEstablecimiento,
     };
-    const update = req.body;
+    const update = {
+      rut: req.body.rut,
+      apellidoPaterno: req.body.apellidoPaterno,
+      apellidoMaterno: req.body.apellidoMaterno,
+      nombre: req.body.nombre,
+      nombreSocial: req.body.nombreSocial,
+      detallesDireccion: req.body.detallesDireccion,
+      direccionNumero: req.body.direccionNumero,
+      direccion: req.body.direccion,
+      direccionPoblacion: req.body.direccionPoblacion,
+      codigoComuna: req.body.codigoComuna,
+      codigoCiudad: req.body.codigoCiudad,
+      codigoRegion: req.body.codigoRegion,
+      telefonoFijo: req.body.telefonoFijo,
+      telefonoMovil: req.body.telefonoMovil,
+      correoCuerpo: req.body.correoCuerpo,
+      correoExtension: req.body.correoExtension,
+      fechaFallecimiento: req.body.fechaFallecimiento
+    };
     await Pacientes.updateOne(filter, update).exec();
     res.sendStatus(204);
   } catch (error) {
