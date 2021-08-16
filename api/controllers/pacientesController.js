@@ -95,7 +95,7 @@ exports.updateAndDeleteSolicitud = async (req, res) => {
       { _id: pacienteActualizado.idPaciente },
       datosPacienteActualizado
     ).exec();
-    await PacientesActualizados.deleteOne({ filtro }).exec();
+    await PacientesActualizados.deleteOne(filtro).exec();
     res.sendStatus(204);
   } catch (error) {
     res.status(500).send({
