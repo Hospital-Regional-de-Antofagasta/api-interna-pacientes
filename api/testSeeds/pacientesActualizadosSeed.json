@@ -5,6 +5,9 @@
       {
         "numero": 16,
         "codigoEstablecimiento": "E01",
+        "hospital": {
+          "E01": 1
+        },
         "nombreEstablecimiento": "Hospital Regional de Antofagasta"
       },
       "direccion":"nombre de calle",
@@ -24,6 +27,9 @@
       "numeroPaciente":{
         "numero": 19,
         "codigoEstablecimiento": "E01",
+        "hospital": {
+          "E01": 1
+        },
         "nombreEstablecimiento": "Hospital Regional de Antofagasta"
       },
       "direccion":"nombre pasaje",

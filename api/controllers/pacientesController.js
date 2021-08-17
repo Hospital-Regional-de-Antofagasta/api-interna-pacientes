@@ -5,9 +5,15 @@ const PacientesActualizados = require("../models/PacientesActualizados");
 // obtener el ultimo paciente ingresado a la bd
 exports.getLast = async (req, res) => {
   try {
-    const paciente = await Pacientes.findOne({
-      "numerosPaciente.codigoEstablecimiento": req.params.codigoEstablecimiento, //Código E01 es el Hospital Regional de Antofagasta
-    })
+    const codigo = req.params.codigoEstablecimiento;
+    const filter = {
+      "numerosPaciente.codigoEstablecimiento": codigo,
+    };
+    const propiedad = `numerosPaciente.hospital.${codigo}`;
+    let sort = {};
+    sort[propiedad] = -1;
+    const paciente = await Pacientes.findOne(filter)
+      .sort(sort)
       .sort({ "numerosPaciente.numero": -1 })
       .exec();
     res.status(200).send(paciente);

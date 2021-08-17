@@ -36,11 +36,17 @@ const pacienteGuardar = {
     {
       numero: 100,
       codigoEstablecimiento: "E01",
+      hospital: {
+        E01: 1
+      },
       nombreEstablecimiento: "Hospital Regional de Antofagasta",
     },
     {
       numero: 99,
       codigoEstablecimiento: "E02",
+      hospital: {
+        E02: 1
+      },
       nombreEstablecimiento: "Hospital de Calama",
     },
   ],
@@ -67,11 +73,17 @@ const pacienteActualizar = {
     {
       numero: 16,
       codigoEstablecimiento: "E01",
+      hospital: {
+        E01: 1
+      },
       nombreEstablecimiento: "Hospital Regional de Antofagasta",
     },
     {
       numero: 15,
       codigoEstablecimiento: "E02",
+      hospital: {
+        E02: 1
+      },
       nombreEstablecimiento: "Hospital de Calama",
     },
   ],

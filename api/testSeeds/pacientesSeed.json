@@ -5,11 +5,17 @@
             {
               "numero": 16,
               "codigoEstablecimiento": "E01",
+              "hospital": {
+                "E01": 1
+              },
               "nombreEstablecimiento": "Hospital Regional de Antofagasta"
             },
             {
               "numero": 15,
               "codigoEstablecimiento": "E02",
+              "hospital": {
+                "E02": 1
+              },
               "nombreEstablecimiento": "Hospital de Calama"
             }
           ],
@@ -36,11 +42,17 @@
             {
               "numero": 19,
               "codigoEstablecimiento": "E01",
+              "hospital": {
+                "E01": 1
+              },
               "nombreEstablecimiento": "Hospital Regional de Antofagasta"
             },
             {
-              "numero": 18,
+              "numero": 200,
               "codigoEstablecimiento": "E02",
+              "hospital": {
+                "E02": 1
+              },
               "nombreEstablecimiento": "Hospital de Calama"
             }
           ],
@@ -67,12 +79,26 @@
             {
               "numero": 20,
               "codigoEstablecimiento": "E01",
+              "hospital": {
+                "E01": 1
+              },
               "nombreEstablecimiento": "Hospital Regional de Antofagasta"
             },
             {
               "numero": 19,
               "codigoEstablecimiento": "E02",
+              "hospital": {
+                "E02": 1
+              },
               "nombreEstablecimiento": "Hospital de Calama"
+            },
+            {
+              "numero": 500,
+              "codigoEstablecimiento": "E03",
+              "hospital": {
+                "E03": 1
+              },
+              "nombreEstablecimiento": "Hospital de Mejillones"
             }
           ],
         "rut":"18502151-3",
