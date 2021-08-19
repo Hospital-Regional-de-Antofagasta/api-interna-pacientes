@@ -27,16 +27,31 @@ exports.getLast = async (req, res) => {
 // crear paciente recibido en la bd
 exports.create = async (req, res) => {
   try {
-    await Pacientes.create(req.body);
+    const pacientes = req.body;
+    const hospital = {};
+    let propiedad = "";
+    if (Array.isArray(pacientes)) {
+      pacientes.forEach((paciente) => {
+        propiedad = `${paciente.numerosPaciente.codigoEstablecimiento}`;
+        hospital[propiedad] = 1;
+        paciente.numerosPaciente.hospital = hospital;
+      });
+    } else {
+      //Sólo un objeto
+      propiedad = `${pacientes.numerosPaciente.codigoEstablecimiento}`;
+      hospital[propiedad] = 1;
+      pacientes.numerosPaciente.hospital = hospital;
+    }
+    await Pacientes.create(pacientes);
     res.sendStatus(201);
-  } catch (error) {
+  } catch (error) { console.log(error)
     res.status(500).send({
       respuesta: `Pacientes create: ${error.name} - ${error.message}`,
     });
   }
 };
 
-// actualizar paciente en la bd 
+// actualizar paciente en la bd
 exports.update = async (req, res) => {
   try {
     const filter = {
@@ -60,7 +75,7 @@ exports.update = async (req, res) => {
       telefonoMovil: req.body.telefonoMovil,
       correoCuerpo: req.body.correoCuerpo,
       correoExtension: req.body.correoExtension,
-      fechaFallecimiento: req.body.fechaFallecimiento
+      fechaFallecimiento: req.body.fechaFallecimiento,
     };
     await Pacientes.updateOne(filter, update).exec();
     res.sendStatus(204);
@@ -71,7 +86,7 @@ exports.update = async (req, res) => {
   }
 };
 
-// eliminar paciente en la bd 
+// eliminar paciente en la bd
 exports.delete = async (req, res) => {
   try {
     const filter = {
