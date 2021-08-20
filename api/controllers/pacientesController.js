@@ -2,7 +2,7 @@ const Paciente = require("../models/Pacientes");
 const Pacientes = require("../models/Pacientes");
 const PacientesActualizados = require("../models/PacientesActualizados");
 
-// obtener el ultimo paciente ingresado a la bd
+// Obtener el ultimo paciente registrado en la bd MongoDB del establecimiento dado.
 exports.getLast = async (req, res) => {
   try {
     const codigo = req.params.codigoEstablecimiento;
@@ -24,7 +24,7 @@ exports.getLast = async (req, res) => {
   }
 };
 
-// crear paciente recibido en la bd
+// Registrar pacientes en la bd MongoDB.
 exports.create = async (req, res) => {
   try {
     const pacientes = req.body;
@@ -32,31 +32,42 @@ exports.create = async (req, res) => {
     let propiedad = "";
     if (Array.isArray(pacientes)) {
       pacientes.forEach((paciente) => {
-        propiedad = `${paciente.numerosPaciente.codigoEstablecimiento}`;
+        propiedad = `${paciente.numerosPaciente[0].codigoEstablecimiento}`;
         hospital[propiedad] = 1;
-        paciente.numerosPaciente.hospital = hospital;
+        paciente.numerosPaciente[0].hospital = hospital;
+        paciente.numerosPaciente[0].idNumero =
+          paciente.numerosPaciente[0].codigoEstablecimiento +
+          "" +
+          paciente.numerosPaciente[0].numero;
       });
     } else {
-      //Sólo un objeto
-      propiedad = `${pacientes.numerosPaciente.codigoEstablecimiento}`;
+      //Sólo un objeto.
+      propiedad = `${pacientes.numerosPaciente[0].codigoEstablecimiento}`;
       hospital[propiedad] = 1;
       pacientes.numerosPaciente.hospital = hospital;
+      pacientes.numerosPaciente[0].idNumero =
+        pacientes.numerosPaciente[0].codigoEstablecimiento +
+        "" +
+        pacientes.numerosPaciente[0].numero;
     }
     await Pacientes.create(pacientes);
     res.sendStatus(201);
-  } catch (error) { console.log(error)
+  } catch (error) {
+    console.log(error);
     res.status(500).send({
       respuesta: `Pacientes create: ${error.name} - ${error.message}`,
     });
   }
 };
 
-// actualizar paciente en la bd
+// Actualizar paciente en la bd MongoDB.
 exports.update = async (req, res) => {
   try {
     const filter = {
-      "numerosPaciente.numero": req.params.numeroPaciente,
-      "numerosPaciente.codigoEstablecimiento": req.params.codigoEstablecimiento,
+      "numerosPaciente.idNumero":
+        req.body.numerosPaciente[0].codigoEstablecimiento +
+        "" +
+        req.body.numerosPaciente[0].numero,
     };
     const update = {
       rut: req.body.rut,
@@ -86,15 +97,14 @@ exports.update = async (req, res) => {
   }
 };
 
-// eliminar paciente en la bd
+// Eliminar paciente de la bd MongoDB.
 exports.delete = async (req, res) => {
   try {
     const filter = {
-      "numerosPaciente.numero": req.params.numeroPaciente,
-      "numerosPaciente.codigoEstablecimiento": req.params.codigoEstablecimiento,
+      "numerosPaciente.idNumero":
+        req.params.codigoEstablecimiento + "" + req.params.numeroPaciente,
     };
-    const update = req.body;
-    await Pacientes.deleteOne(filter, update).exec();
+    await Pacientes.deleteOne(filter).exec();
     res.sendStatus(204);
   } catch (error) {
     res.status(500).send({
@@ -103,6 +113,7 @@ exports.delete = async (req, res) => {
   }
 };
 
+// Obtiene las solicitudes de actualización de datos de contacto del establecimiento dado.
 exports.getPacientesActualizados = async (req, res) => {
   try {
     const pacientesActualizados = await PacientesActualizados.find({
@@ -116,11 +127,12 @@ exports.getPacientesActualizados = async (req, res) => {
   }
 };
 
+//Actualiza un paciente en la db MongoDB y elimina la solicitud de actualización del paciente  y establecimiento dados. 
 exports.updateAndDeleteSolicitud = async (req, res) => {
   try {
     const filtro = {
-      "numeroPaciente.numero": req.params.numeroPaciente,
-      "numeroPaciente.codigoEstablecimiento": req.params.codigoEstablecimiento,
+      "numeroPaciente.idNumero":
+        req.params.codigoEstablecimiento + "" + req.params.numeroPaciente,
     };
     const pacienteActualizado = await PacientesActualizados.findOne(
       filtro

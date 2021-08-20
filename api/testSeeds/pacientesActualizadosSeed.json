@@ -3,6 +3,7 @@
     "idPaciente":"000000000016",
     "numeroPaciente":
       {
+        "idNumero": "E0116",
         "numero": 16,
         "codigoEstablecimiento": "E01",
         "hospital": {
@@ -23,9 +24,10 @@
       "correoExtension":"correo.com"
   },
   {
-      "idPaciente":"000000000019",
+      "idPaciente":"000000000021",
       "numeroPaciente":{
-        "numero": 19,
+        "idNumero": "E0121",
+        "numero": 21,
         "codigoEstablecimiento": "E01",
         "hospital": {
           "E01": 1

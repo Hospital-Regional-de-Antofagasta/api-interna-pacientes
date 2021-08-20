@@ -3,6 +3,7 @@
         "_id": "000000000016",
         "numerosPaciente": [
             {
+              "idNumero": "E0116",
               "numero": 16,
               "codigoEstablecimiento": "E01",
               "hospital": {
@@ -11,6 +12,7 @@
               "nombreEstablecimiento": "Hospital Regional de Antofagasta"
             },
             {
+              "idNumero": "E0215",
               "numero": 15,
               "codigoEstablecimiento": "E02",
               "hospital": {
@@ -37,10 +39,11 @@
         "nombreSocial":null
     },
     {
-        "_id": "000000000019",
+        "_id": "000000000021",
         "numerosPaciente": [
             {
-              "numero": 19,
+              "idNumero": "E0121",
+              "numero": 21,
               "codigoEstablecimiento": "E01",
               "hospital": {
                 "E01": 1
@@ -48,6 +51,7 @@
               "nombreEstablecimiento": "Hospital Regional de Antofagasta"
             },
             {
+              "idNumero": "E02200",
               "numero": 200,
               "codigoEstablecimiento": "E02",
               "hospital": {
@@ -77,6 +81,7 @@
         "_id": "000000000020",
         "numerosPaciente": [
             {
+              "idNumero": "E0120",
               "numero": 20,
               "codigoEstablecimiento": "E01",
               "hospital": {
@@ -85,14 +90,16 @@
               "nombreEstablecimiento": "Hospital Regional de Antofagasta"
             },
             {
-              "numero": 19,
+              "idNumero": "E0216",
+              "numero": 16,
               "codigoEstablecimiento": "E02",
               "hospital": {
                 "E02": 1
               },
               "nombreEstablecimiento": "Hospital de Calama"
             },
-            {
+            {              
+              "idNumero": "E03500",
               "numero": 500,
               "codigoEstablecimiento": "E03",
               "hospital": {
