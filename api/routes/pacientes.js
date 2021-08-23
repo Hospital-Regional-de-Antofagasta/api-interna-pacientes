@@ -5,7 +5,7 @@ const { isAuthenticated } = require("../middleware/auth");
 const router = express.Router();
 
 router.get(
-  "/ultimo/:codigoEstablecimiento",
+  "/ultimo/",
   isAuthenticated,
   pacientesController.getLast
 );
@@ -13,25 +13,25 @@ router.get(
 router.post("", isAuthenticated, pacientesController.create);
 
 router.put(
-  "/:codigoEstablecimiento/:numeroPaciente",
+  "/:numeroPaciente",
   isAuthenticated,
   pacientesController.update
 );
 
 router.delete(
-  "/:codigoEstablecimiento/:numeroPaciente",
+  "/:numeroPaciente",
   isAuthenticated,
   pacientesController.delete
 );
 
 router.get(
-  "/datos-contacto-actualizados/:codigoEstablecimiento",
+  "/datos-contacto-actualizados/",
   isAuthenticated,
   pacientesController.getPacientesActualizados
 );
 
 router.put(
-  "/actualizar-datos-contacto-y-eliminar-solicitud/:codigoEstablecimiento/:numeroPaciente",
+  "/actualizar-datos-contacto-y-eliminar-solicitud/:numeroPaciente",
   isAuthenticated,
   pacientesController.updateAndDeleteSolicitud
 );

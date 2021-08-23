@@ -5,16 +5,8 @@ const PacientesActualizados = require("../models/PacientesActualizados");
 // Obtener el ultimo paciente registrado en la bd MongoDB del establecimiento dado.
 exports.getLast = async (req, res) => {
   try {
-    const codigo = req.params.codigoEstablecimiento;
-    const filter = {
-      "numerosPaciente.codigoEstablecimiento": codigo,
-    };
-    const propiedad = `numerosPaciente.hospital.${codigo}`;
-    let sort = {};
-    sort[propiedad] = -1;
-    const paciente = await Pacientes.findOne(filter)
-      .sort(sort)
-      .sort({ "numerosPaciente.numero": -1 })
+    const paciente = await Pacientes.findOne()
+      .sort({ numeroPaciente: -1 })
       .exec();
     res.status(200).send(paciente);
   } catch (error) {
@@ -28,28 +20,6 @@ exports.getLast = async (req, res) => {
 exports.create = async (req, res) => {
   try {
     const pacientes = req.body;
-    const hospital = {};
-    let propiedad = "";
-    if (Array.isArray(pacientes)) {
-      pacientes.forEach((paciente) => {
-        propiedad = `${paciente.numerosPaciente[0].codigoEstablecimiento}`;
-        hospital[propiedad] = 1;
-        paciente.numerosPaciente[0].hospital = hospital;
-        paciente.numerosPaciente[0].idNumero =
-          paciente.numerosPaciente[0].codigoEstablecimiento +
-          "" +
-          paciente.numerosPaciente[0].numero;
-      });
-    } else {
-      //Sólo un objeto.
-      propiedad = `${pacientes.numerosPaciente[0].codigoEstablecimiento}`;
-      hospital[propiedad] = 1;
-      pacientes.numerosPaciente.hospital = hospital;
-      pacientes.numerosPaciente[0].idNumero =
-        pacientes.numerosPaciente[0].codigoEstablecimiento +
-        "" +
-        pacientes.numerosPaciente[0].numero;
-    }
     await Pacientes.create(pacientes);
     res.sendStatus(201);
   } catch (error) {
@@ -64,10 +34,7 @@ exports.create = async (req, res) => {
 exports.update = async (req, res) => {
   try {
     const filter = {
-      "numerosPaciente.idNumero":
-        req.body.numerosPaciente[0].codigoEstablecimiento +
-        "" +
-        req.body.numerosPaciente[0].numero,
+      numeroPaciente: req.params.numeroPaciente,
     };
     const update = {
       rut: req.body.rut,
@@ -101,8 +68,7 @@ exports.update = async (req, res) => {
 exports.delete = async (req, res) => {
   try {
     const filter = {
-      "numerosPaciente.idNumero":
-        req.params.codigoEstablecimiento + "" + req.params.numeroPaciente,
+      numeroPaciente:req.params.numeroPaciente,
     };
     await Pacientes.deleteOne(filter).exec();
     res.sendStatus(204);
@@ -116,9 +82,7 @@ exports.delete = async (req, res) => {
 // Obtiene las solicitudes de actualización de datos de contacto del establecimiento dado.
 exports.getPacientesActualizados = async (req, res) => {
   try {
-    const pacientesActualizados = await PacientesActualizados.find({
-      "numeroPaciente.codigoEstablecimiento": req.params.codigoEstablecimiento,
-    }).exec();
+    const pacientesActualizados = await PacientesActualizados.find().exec();
     res.status(200).send(pacientesActualizados);
   } catch (error) {
     res.status(500).send({
@@ -127,12 +91,11 @@ exports.getPacientesActualizados = async (req, res) => {
   }
 };
 
-//Actualiza un paciente en la db MongoDB y elimina la solicitud de actualización del paciente  y establecimiento dados. 
+//Actualiza un paciente en la db MongoDB y elimina la solicitud de actualización del paciente  y establecimiento dados.
 exports.updateAndDeleteSolicitud = async (req, res) => {
   try {
     const filtro = {
-      "numeroPaciente.idNumero":
-        req.params.codigoEstablecimiento + "" + req.params.numeroPaciente,
+      numeroPaciente:req.params.numeroPaciente,
     };
     const pacienteActualizado = await PacientesActualizados.findOne(
       filtro

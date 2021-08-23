@@ -1,16 +1,7 @@
 [
   {
     "idPaciente":"000000000016",
-    "numeroPaciente":
-      {
-        "idNumero": "E0116",
-        "numero": 16,
-        "codigoEstablecimiento": "E01",
-        "hospital": {
-          "E01": 1
-        },
-        "nombreEstablecimiento": "Hospital Regional de Antofagasta"
-      },
+    "numeroPaciente":16,
       "direccion":"nombre de calle",
       "direccionNumero":"123",
       "detallesDireccion":"casa 20",
@@ -25,15 +16,7 @@
   },
   {
       "idPaciente":"000000000021",
-      "numeroPaciente":{
-        "idNumero": "E0121",
-        "numero": 21,
-        "codigoEstablecimiento": "E01",
-        "hospital": {
-          "E01": 1
-        },
-        "nombreEstablecimiento": "Hospital Regional de Antofagasta"
-      },
+      "numeroPaciente":21,
       "direccion":"nombre pasaje",
       "direccionNumero":"1234",
       "detallesDireccion":"depto 303",

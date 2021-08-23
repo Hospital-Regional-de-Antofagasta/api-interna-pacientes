@@ -6,13 +6,7 @@ const PacientesActualizados = mongoose.model(
   new Schema(
     {
       idPaciente: String,
-      numeroPaciente: {
-        idNumero: String,
-        numero: {type: Number, require: true},
-        codigoEstablecimiento: {type: String, require: true},
-        hospital: {},
-        nombreEstablecimiento: String,
-      },
+      numeroPaciente: { type: Number, require: true },
       direccion: String,
       direccionNumero: String,
       detallesDireccion: String,
@@ -26,7 +20,7 @@ const PacientesActualizados = mongoose.model(
       correoExtension: String,
     },
     { timestamps: true }
-  ).index({'numeroPaciente.numero':1,'numeroPaciente.codigoEstablecimiento':1},{unique: true})
+  ) //.index({'numeroPaciente.numero':1,'numeroPaciente.codigoEstablecimiento':1},{unique: true})
 );
 
 module.exports = PacientesActualizados;
