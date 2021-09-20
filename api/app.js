@@ -19,6 +19,12 @@ mongoose.connect(connection, {
   useUnifiedTopology: true,
 });
 
+app.use("/hradb-a-mongodb/pacientes", pacientes);
+
+app.get("/hradb-a-mongodb/pacientes/health", (req, res) => {
+  res.status(200).send("ready");
+});
+
 if (require.main === module) {
   // true if file is executed
   process.on("SIGINT", function () {
@@ -28,7 +34,5 @@ if (require.main === module) {
     console.log(`App listening at http://${localhost}:${port}`);
   });
 }
-
-app.use("/hradb-a-mongodb/pacientes", pacientes);
 
 module.exports = app;
