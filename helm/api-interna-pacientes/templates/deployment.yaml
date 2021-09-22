@@ -47,7 +47,7 @@ spec:
               value: "{{ .Values.service.targetPort }}"
             - name: HOSTNAME
               value: localhost
-            - name: JWT_SECRET
+            - name: HRADB_A_MONGODB_SECRET
               valueFrom:
                 secretKeyRef:
                   name: {{ include "api-interna-pacientes.secrets" . }}
