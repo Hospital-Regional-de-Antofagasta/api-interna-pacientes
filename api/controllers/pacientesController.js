@@ -68,7 +68,7 @@ exports.update = async (req, res) => {
 exports.delete = async (req, res) => {
   try {
     const filter = {
-      numeroPaciente:req.params.numeroPaciente,
+      numeroPaciente: req.params.numeroPaciente,
     };
     await Pacientes.deleteOne(filter).exec();
     res.sendStatus(204);
@@ -82,7 +82,9 @@ exports.delete = async (req, res) => {
 // Obtiene las solicitudes de actualización de datos de contacto del establecimiento dado.
 exports.getPacientesActualizados = async (req, res) => {
   try {
-    const pacientesActualizados = await PacientesActualizados.find().exec();
+    const pacientesActualizados = await PacientesActualizados.find()
+      .limit(100)
+      .exec();
     res.status(200).send(pacientesActualizados);
   } catch (error) {
     res.status(500).send({
@@ -95,7 +97,7 @@ exports.getPacientesActualizados = async (req, res) => {
 exports.updateAndDeleteSolicitud = async (req, res) => {
   try {
     const filtro = {
-      numeroPaciente:req.params.numeroPaciente,
+      numeroPaciente: req.params.numeroPaciente,
     };
     const pacienteActualizado = await PacientesActualizados.findOne(
       filtro
