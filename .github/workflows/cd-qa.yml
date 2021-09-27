@@ -27,7 +27,7 @@
             MONGO_URI: "mongodb://localhost:27017/hrapp_dev"
             PORT: "3000"
             HOST_NAME: "localhost"
-            JWT_SECRET: "TEST"
+            HRADB_A_MONGODB_SECRET: "TEST"
           run: |
             chmod +x ./gradlew
             ./gradlew helmInstallToCloud
