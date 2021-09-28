@@ -380,12 +380,12 @@ describe("Endpoints pacientes", () => {
       done();
     });
   });
-  describe("PUT /hradb-a-mongodb/pacientes/actualizar-datos-contacto-y-eliminar-solicitud/:numeroPaciente", () => {
+  describe("DELETE /hradb-a-mongodb/pacientes/actualizar-datos-contacto-y-eliminar-solicitud/:numeroPaciente", () => {
     // Test de Autorización.
     it("Should not update datos contacto paciente", async (done) => {
       // Ejecutar endpoint.
       const response = await request
-        .put(
+        .delete(
           "/hradb-a-mongodb/pacientes/actualizar-datos-contacto-y-eliminar-solicitud/16"
         )
         .set("Authorization", "no-token");
@@ -398,7 +398,7 @@ describe("Endpoints pacientes", () => {
     it("Should not update datos contacto paciente from a paciente that does not exists", async (done) => {
       // Ejecutar endpoint.
       const response = await request
-        .put(
+        .delete(
           "/hradb-a-mongodb/pacientes/actualizar-datos-contacto-y-eliminar-solicitud/17"
         )
         .set("Authorization", token);
@@ -411,7 +411,7 @@ describe("Endpoints pacientes", () => {
     it("Should update datos contacto paciente and delete respective pacientes_actualizados", async (done) => {
       // Ejecutar endpoint.
       const response = await request
-        .put(
+        .delete(
           "/hradb-a-mongodb/pacientes/actualizar-datos-contacto-y-eliminar-solicitud/21"
         )
         .set("Authorization", token);
