@@ -1,6 +1,7 @@
 [
     {
         "_id": "000000000016",
+        "correlativo": 1,
         "numeroPaciente": 16,
         "rut":"10771131-7",
         "apellidoPaterno":"LAZO",
@@ -21,6 +22,7 @@
     },
     {
         "_id": "000000000021",
+        "correlativo": 2,
         "numeroPaciente": 21,
         "rut":"17724699-9",
         "apellidoPaterno":"RIVERA",
@@ -41,6 +43,7 @@
     },
     {
         "_id": "000000000020",
+        "correlativo": 3,
         "numeroPaciente": 20,
         "rut":"18502151-3",
         "apellidoPaterno":"RIVERA",

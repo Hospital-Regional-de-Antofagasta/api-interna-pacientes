@@ -1,4 +1,3 @@
-const Paciente = require("../models/Pacientes");
 const Pacientes = require("../models/Pacientes");
 const PacientesActualizados = require("../models/PacientesActualizados");
 
@@ -16,16 +15,33 @@ exports.getLast = async (req, res) => {
   }
 };
 
-// Registrar pacientes en la bd MongoDB.
 exports.create = async (req, res) => {
+  const pacientesInsertados = [];
   try {
     const pacientes = req.body;
-    await Pacientes.create(pacientes);
-    res.sendStatus(201);
+    for (let paciente of pacientes) {
+      try {
+        const pacienteInsertado = await Pacientes.create(paciente);
+        pacientesInsertados.push({
+          afectado: paciente.correlativo,
+          realizado: true,
+          error: "",
+        });
+      } catch (error) {
+        pacientesInsertados.push({
+          afectado: paciente.correlativo,
+          realizado: false,
+          error: `${error.name} - ${error.message}`,
+        });
+      }
+    }
+    res.status(201).send({
+      resultados: pacientesInsertados,
+    });
   } catch (error) {
-    console.log(error);
     res.status(500).send({
-      respuesta: `Pacientes create: ${error.name} - ${error.message}`,
+      error: `Pacientes create: ${error.name} - ${error.message}`,
+      resultados: pacientesInsertados,
     });
   }
 };
@@ -64,6 +80,56 @@ exports.update = async (req, res) => {
   }
 };
 
+exports.updateMany = async (req, res) => {
+  const pacientesActualizados = [];
+  try {
+    const pacientes = req.body;
+    for (let paciente of pacientes) {
+      try {
+        const filter = { correlativo: paciente.correlativo };
+        const pacienteAActualizar = await Pacientes.find(filter).exec();
+        if (pacienteAActualizar.length === 0) {
+          pacientesActualizados.push({
+            afectado: paciente.correlativo,
+            realizado: false,
+            error: "El paciente no fue encontrado.",
+          });
+          continue;
+        }
+        if (pacienteAActualizar.length > 1) {
+          pacientesActualizados.push({
+            afectado: paciente.correlativo,
+            realizado: false,
+            error: `${pacienteAActualizar.length} pacientes encontrados.`,
+          });
+          continue;
+        }
+        // solo encontro uno para actualizar
+        const response = await Pacientes.updateOne(filter, paciente).exec();
+        pacientesActualizados.push({
+          afectado: paciente.correlativo,
+          realizado: response.modifiedCount ? true : false,
+          error: response.modifiedCount ? "" : "El paciente no fue actualizado.",
+        });
+      } catch (error) {
+        pacientesActualizados.push({
+          afectado: paciente.correlativo,
+          realizado: false,
+          error: `${error.name} - ${error.message}`,
+        });
+      }
+    }
+    res.status(200).send({
+      resultados: pacientesActualizados,
+    });
+  } catch (error) {
+    res.status(500).send({
+      error: `Actualizar pacientes: ${error.name} - ${error.message}`,
+      resultados: pacientesActualizados,
+    });
+  }
+};
+
 // Eliminar paciente de la bd MongoDB.
 exports.delete = async (req, res) => {
   try {
@@ -75,6 +141,57 @@ exports.delete = async (req, res) => {
   } catch (error) {
     res.status(500).send({
       respuesta: `Pacientes delete: ${error.name} - ${error.message}`,
+    });
+  }
+};
+
+// Registrar pacientes en la bd MongoDB.
+exports.deleteMany = async (req, res) => {
+  const pacientesEliminados = [];
+  try {
+    const correlativosPacientes = req.body;
+    for (let correlativo of correlativosPacientes) {
+      try {
+        const filter = { correlativo };
+        const pacienteAEliminar = await Pacientes.find(filter).exec();
+        if (pacienteAEliminar.length === 0) {
+          pacientesEliminados.push({
+            afectado: correlativo,
+            realizado: true,
+            error: "",
+          });
+          continue;
+        }
+        if (pacienteAEliminar.length > 1) {
+          pacientesEliminados.push({
+            afectado: correlativo,
+            realizado: false,
+            error: `${pacienteAEliminar.length} pacientes encontrados.`,
+          });
+          continue;
+        }
+        // solo encontro uno para eliminar
+        const response = await Pacientes.deleteOne(filter).exec();
+        pacientesEliminados.push({
+          afectado: correlativo,
+          realizado: response.deletedCount ? true : false,
+          error: response.deletedCount ? "" : "El paciente no fue eliminado.",
+        });
+      } catch (error) {
+        pacientesEliminados.push({
+          afectado: correlativo,
+          realizado: false,
+          error: `${error.name} - ${error.message}`,
+        });
+      }
+    }
+    res.status(200).send({
+      resultados: pacientesEliminados,
+    });
+  } catch (error) {
+    res.status(500).send({
+      error: `Pacientes delete: ${error.name} - ${error.message}`,
+      resultados: pacientesEliminados,
     });
   }
 };
@@ -107,7 +224,7 @@ exports.updateAndDeleteSolicitud = async (req, res) => {
     // obtener solo los campos que se debe actualizar
     const { _id, __v, createdAt, updatedAt, ...datosPacienteActualizado } =
       pacienteActualizado.toObject();
-    await Paciente.updateOne(
+    await Pacientes.updateOne(
       { _id: pacienteActualizado.idPaciente },
       datosPacienteActualizado
     ).exec();
