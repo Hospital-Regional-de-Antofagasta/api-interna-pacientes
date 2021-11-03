@@ -5,14 +5,16 @@ const Paciente = mongoose.model(
   "paciente",
   new Schema(
     {
-      numeroPaciente: { type: Number, require: true },
-      rut: String,
+      correlativo: { type: Number, require: true, unique: true },
+      numeroPaciente: { type: Number, require: true, unique: true },
+      nombreSocial: String,
+      nombre: String,
       apellidoPaterno: String,
       apellidoMaterno: String,
-      nombre: String,
-      direccion: String,
-      direccionNumero: String,
+      rut: String,
       detallesDireccion: String,
+      direccionNumero: String,
+      direccion: String,
       direccionPoblacion: String,
       codigoComuna: String,
       codigoCiudad: String,
@@ -21,9 +23,8 @@ const Paciente = mongoose.model(
       telefonoMovil: String,
       correoCuerpo: String,
       correoExtension: String,
-      datosContactoActualizados: { type: Boolean, default: false },
       fechaFallecimiento: Date,
-      nombreSocial: String,
+      datosContactoActualizados: { type: Boolean, default: false },
     },
     { timestamps: true }
   ) //.index({ "numeroPaciente.numero": 1, "numeroPaciente.codigoEstablecimiento": 1 },{ unique: true })

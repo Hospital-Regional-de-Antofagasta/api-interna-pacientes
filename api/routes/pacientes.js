@@ -10,7 +10,11 @@ router.post("", isAuthenticated, pacientesController.create);
 
 router.put("/:numeroPaciente", isAuthenticated, pacientesController.update);
 
+router.put("", isAuthenticated, pacientesController.updateMany);
+
 router.delete("/:numeroPaciente", isAuthenticated, pacientesController.delete);
+
+router.delete("", isAuthenticated, pacientesController.deleteMany);
 
 router.get(
   "/datos-contacto-actualizados/",
