@@ -240,7 +240,7 @@ describe("Endpoints pacientes", () => {
 
       expect(response.status).toBe(201);
 
-      expect(pacientesBD.length).toBe(7);
+      expect(pacientesBD.length).toBe(6);
 
       const { resultados } = response.body;
 
@@ -248,9 +248,8 @@ describe("Endpoints pacientes", () => {
       expect(resultados).toEqual([
         {
           afectado: 2,
-          realizado: false,
-          error:
-            "MongoServerError - E11000 duplicate key error collection: pacientes_test.pacientes index: _id_ dup key: { _id: ObjectId('303030303030303030303231') }",
+          realizado: true,
+          error: "El paciente ya existe.",
         },
         {
           afectado: 11,
@@ -259,8 +258,8 @@ describe("Endpoints pacientes", () => {
         },
         {
           afectado: 12,
-          realizado: true,
-          error: "",
+          realizado: false,
+          error: "MongoServerError - E11000 duplicate key error collection: pacientes_test.pacientes index: _id_ dup key: { _id: ObjectId('303030303030303030303231') }",
         },
         {
           afectado: 13,
@@ -440,7 +439,7 @@ describe("Endpoints pacientes", () => {
         {
           afectado: 4,
           realizado: false,
-          error: "El paciente no fue encontrado.",
+          error: "El paciente no existe.",
         },
         {
           afectado: 1,
@@ -450,7 +449,8 @@ describe("Endpoints pacientes", () => {
         {
           afectado: 2,
           realizado: false,
-          error: "MongoServerError - Performing an update on the path '_id' would modify the immutable field '_id'",
+          error:
+            "MongoServerError - Performing an update on the path '_id' would modify the immutable field '_id'",
         },
         {
           afectado: 2,
@@ -531,7 +531,7 @@ describe("Endpoints pacientes", () => {
         {
           afectado: 4,
           realizado: true,
-          error: "",
+          error: "El paciente no existe.",
         },
         {
           afectado: 1,
@@ -541,7 +541,7 @@ describe("Endpoints pacientes", () => {
         {
           afectado: 5,
           realizado: true,
-          error: "",
+          error: "El paciente no existe.",
         },
         {
           afectado: 2,

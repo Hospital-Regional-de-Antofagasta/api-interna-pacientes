@@ -21,7 +21,17 @@ exports.create = async (req, res) => {
     const pacientes = req.body;
     for (let paciente of pacientes) {
       try {
-        const pacienteInsertado = await Pacientes.create(paciente);
+        const filter = { correlativo: paciente.correlativo };
+        const pacienteAInsertar = await Pacientes.find(filter).exec();
+        if (pacienteAInsertar.length > 0) {
+          pacientesInsertados.push({
+            afectado: paciente.correlativo,
+            realizado: true,
+            error: "El paciente ya existe.",
+          });
+          continue;
+        }
+        await Pacientes.create(paciente);
         pacientesInsertados.push({
           afectado: paciente.correlativo,
           realizado: true,
@@ -92,7 +102,7 @@ exports.updateMany = async (req, res) => {
           pacientesActualizados.push({
             afectado: paciente.correlativo,
             realizado: false,
-            error: "El paciente no fue encontrado.",
+            error: "El paciente no existe.",
           });
           continue;
         }
@@ -158,7 +168,7 @@ exports.deleteMany = async (req, res) => {
           pacientesEliminados.push({
             afectado: correlativo,
             realizado: true,
-            error: "",
+            error: "El paciente no existe.",
           });
           continue;
         }
