@@ -107,7 +107,7 @@ describe("Endpoints pacientes", () => {
         .set("Authorization", "no-token");
       // Verificar que retornó el status code sea el correcto.
       expect(response.status).toBe(401);
-      expect(response.body.respuesta).toBe("Acceso no autorizado.");
+      expect(response.body.error).toBe("Acceso no autorizado.");
     });
     // Test base de datos vacía.
     it("Should get last paciente from empty database", async () => {
@@ -178,7 +178,7 @@ describe("Endpoints pacientes", () => {
       // Verificar que retornó el status code sea el correcto.
       expect(response.status).toBe(401);
       // Debe entregar el mensaje
-      expect(response.body.respuesta).toBe("Acceso no autorizado.");
+      expect(response.body.error).toBe("Acceso no autorizado.");
       // No se debe haber encontrado el paciente.
       expect(pacienteObtenido).toBeFalsy();
     });
@@ -291,7 +291,7 @@ describe("Endpoints pacientes", () => {
       // Verificar que retornó el status code sea el correcto.
       expect(response.status).toBe(401);
       // Debe entregar el mensaje.
-      expect(response.body.respuesta).toBe("Acceso no autorizado.");
+      expect(response.body.error).toBe("Acceso no autorizado.");
     });
     // Test actualizar paciente.
     it("Should update paciente", async () => {
@@ -364,7 +364,7 @@ describe("Endpoints pacientes", () => {
 
       expect(response.status).toBe(401);
 
-      expect(response.body.respuesta).toBe("Acceso no autorizado.");
+      expect(response.body.error).toBe("Acceso no autorizado.");
     });
     it("Should update paciente", async () => {
       const response = await request
@@ -471,7 +471,7 @@ describe("Endpoints pacientes", () => {
       // Verificar que retornó el status code sea el correcto.
       expect(response.status).toBe(401);
       // Debe entregar el mensaje.
-      expect(response.body.respuesta).toBe("Acceso no autorizado.");
+      expect(response.body.error).toBe("Acceso no autorizado.");
     });
     // Test eliminar paciente.
     it("Should delete paciente", async () => {
@@ -497,7 +497,7 @@ describe("Endpoints pacientes", () => {
 
       expect(response.status).toBe(401);
 
-      expect(response.body.respuesta).toBe("Acceso no autorizado.");
+      expect(response.body.error).toBe("Acceso no autorizado.");
     });
     it("Should delete paciente", async () => {
       const response = await request
@@ -561,7 +561,7 @@ describe("Endpoints pacientes", () => {
       // Verificar que retornó el status code sea el correcto.
       expect(response.status).toBe(401);
       // Debe entregar el mensaje.
-      expect(response.body.respuesta).toBe("Acceso no autorizado.");
+      expect(response.body.error).toBe("Acceso no autorizado.");
     });
     it("Should get updated datos contacto paciente from empty database", async () => {
       // Vaciar bd.
@@ -598,7 +598,7 @@ describe("Endpoints pacientes", () => {
       // Verificar que retornó el status code sea el correcto.
       expect(response.status).toBe(401);
       // Debe entregar el mensaje.
-      expect(response.body.respuesta).toBe("Acceso no autorizado.");
+      expect(response.body.error).toBe("Acceso no autorizado.");
     });
     it("Should not update datos contacto paciente from a paciente that does not exists", async () => {
       // Ejecutar endpoint.
@@ -610,7 +610,7 @@ describe("Endpoints pacientes", () => {
       // Verificar que retornó el status code sea el correcto.
       expect(response.status).toBe(404);
       // Debe entregar el mensaje.
-      expect(response.body.respuesta).toBe("Paciente no encontrado.");
+      expect(response.body.error).toBe("Paciente no encontrado.");
     });
     it("Should update datos contacto paciente and delete respective pacientes_actualizados", async () => {
       // Ejecutar endpoint.

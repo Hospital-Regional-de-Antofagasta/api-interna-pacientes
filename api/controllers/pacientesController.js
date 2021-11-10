@@ -85,7 +85,7 @@ exports.update = async (req, res) => {
     res.sendStatus(204);
   } catch (error) {
     res.status(500).send({
-      respuesta: `Pacientes update: ${error.name} - ${error.message}`,
+      error: `Pacientes update: ${error.name} - ${error.message}`,
     });
   }
 };
@@ -150,7 +150,7 @@ exports.delete = async (req, res) => {
     res.sendStatus(204);
   } catch (error) {
     res.status(500).send({
-      respuesta: `Pacientes delete: ${error.name} - ${error.message}`,
+      error: `Pacientes delete: ${error.name} - ${error.message}`,
     });
   }
 };
@@ -215,7 +215,7 @@ exports.getPacientesActualizados = async (req, res) => {
     res.status(200).send(pacientesActualizados);
   } catch (error) {
     res.status(500).send({
-      respuesta: `Pacientes getPacientesActualizados: ${error.name} - ${error.message}`,
+      error: `Pacientes getPacientesActualizados: ${error.name} - ${error.message}`,
     });
   }
 };
@@ -230,7 +230,7 @@ exports.updateAndDeleteSolicitud = async (req, res) => {
       filtro
     ).exec();
     if (!pacienteActualizado)
-      return res.status(404).send({ respuesta: "Paciente no encontrado." });
+      return res.status(404).send({ error: "Paciente no encontrado." });
     // obtener solo los campos que se debe actualizar
     const { _id, __v, createdAt, updatedAt, ...datosPacienteActualizado } =
       pacienteActualizado.toObject();
@@ -242,7 +242,7 @@ exports.updateAndDeleteSolicitud = async (req, res) => {
     res.sendStatus(204);
   } catch (error) {
     res.status(500).send({
-      respuesta: `Pacientes updateAndDeleteSolicitud: ${error.name} - ${error.message}`,
+      error: `Pacientes updateAndDeleteSolicitud: ${error.name} - ${error.message}`,
     });
   }
 };
