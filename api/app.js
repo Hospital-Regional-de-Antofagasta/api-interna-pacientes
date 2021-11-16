@@ -3,7 +3,8 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 
-const pacientes = require("./routes/pacientes");
+const pacientesSalida = require("./routes/pacientesSalida");
+const pacientesEntrada = require("./routes/pacientesEntrada");
 
 const app = express();
 
@@ -19,11 +20,15 @@ mongoose.connect(connection, {
   useUnifiedTopology: true,
 });
 
-app.get("/hradb-a-mongodb/pacientes/health", (req, res) => {
+app.get("/inter-mongo-pacientes/health", (req, res) => {
   res.status(200).send("ready");
 });
 
-app.use("/hradb-a-mongodb/pacientes", pacientes);
+// Desde el hospital a la nube
+app.use("/inter-mongo-pacientes/salida", pacientesSalida);
+
+// Desde la nube al hospital
+app.use("/inter-mongo-pacientes/entrada", pacientesEntrada);
 
 if (require.main === module) {
   // true if file is executed

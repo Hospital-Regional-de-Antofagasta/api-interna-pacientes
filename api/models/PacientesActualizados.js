@@ -6,6 +6,7 @@ const PacientesActualizados = mongoose.model(
   new Schema(
     {
       idPaciente: String,
+      correlativo: { type: Number, require: true },
       numeroPaciente: { type: Number, require: true },
       direccion: String,
       direccionNumero: String,

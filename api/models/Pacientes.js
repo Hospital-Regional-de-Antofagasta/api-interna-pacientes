@@ -7,11 +7,11 @@ const Paciente = mongoose.model(
     {
       correlativo: { type: Number, require: true, unique: true },
       numeroPaciente: { type: Number, require: true, unique: true },
+      rut: { type: String, require: true, unique: true },
       nombreSocial: String,
       nombre: String,
       apellidoPaterno: String,
       apellidoMaterno: String,
-      rut: String,
       detallesDireccion: String,
       direccionNumero: String,
       direccion: String,
