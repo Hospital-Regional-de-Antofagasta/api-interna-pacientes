@@ -5,8 +5,6 @@ const Paciente = mongoose.model(
   "paciente",
   new Schema(
     {
-      correlativo: { type: Number, require: true },
-      numeroPaciente: { type: Number, require: true, unique: true },
       rut: { type: String, require: true, unique: true },
       nombreSocial: String,
       nombre: String,
@@ -24,6 +22,7 @@ const Paciente = mongoose.model(
       correoCuerpo: String,
       correoExtension: String,
       fechaFallecimiento: Date,
+      codigosEstablecimientos: [String],
       datosContactoActualizados: { type: Boolean, default: false },
     },
     { timestamps: true }

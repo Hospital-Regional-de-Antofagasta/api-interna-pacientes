@@ -28,7 +28,16 @@ afterEach(async () => {
 
 describe("Endpoints pacientes entrada", () => {
   describe("GET /inter-mongo-pacientes/entrada/solicitudes-actualizacion", () => {
-    it("Should not get updated datos contacto paciente", async () => {
+    it("Should not get updated datos contacto paciente without token", async () => {
+      const response = await request.get(
+        "/inter-mongo-pacientes/entrada/solicitudes-actualizacion/"
+      );
+
+      expect(response.status).toBe(401);
+
+      expect(response.body.error).toBe("Acceso no autorizado.");
+    });
+    it("Should not get updated datos contacto paciente with invalid token", async () => {
       const response = await request
         .get("/inter-mongo-pacientes/entrada/solicitudes-actualizacion/")
         .set("Authorization", "no-token");
@@ -37,10 +46,23 @@ describe("Endpoints pacientes entrada", () => {
 
       expect(response.body.error).toBe("Acceso no autorizado.");
     });
+    it("Should not get updated datos contacto paciente without codigo establecimiento", async () => {
+      const response = await request
+        .get("/inter-mongo-pacientes/entrada/solicitudes-actualizacion/")
+        .set("Authorization", token);
+
+      expect(response.status).toBe(400);
+
+      expect(response.body.error).toBe(
+        "Se debe enviar el codigo del establecimiento."
+      );
+    });
     it("Should get updated datos contacto paciente from empty database", async () => {
       await PacientesActualizados.deleteMany();
       const response = await request
-        .get("/inter-mongo-pacientes/entrada/solicitudes-actualizacion/")
+        .get(
+          "/inter-mongo-pacientes/entrada/solicitudes-actualizacion?codigoEstablecimiento=HRA"
+        )
         .set("Authorization", token);
 
       expect(response.status).toBe(200);
@@ -49,7 +71,9 @@ describe("Endpoints pacientes entrada", () => {
     });
     it("Should get updated datos contacto paciente", async () => {
       const response = await request
-        .get("/inter-mongo-pacientes/entrada/solicitudes-actualizacion/")
+        .get(
+          "/inter-mongo-pacientes/entrada/solicitudes-actualizacion?codigoEstablecimiento=HRA"
+        )
         .set("Authorization", token);
 
       expect(response.status).toBe(200);
@@ -58,7 +82,16 @@ describe("Endpoints pacientes entrada", () => {
     });
   });
   describe("DELETE /inter-mongo-pacientes/entrada/solicitudes-actualizacion", () => {
-    it("Should not delete solicitudes actualizar paciente", async () => {
+    it("Should not delete solicitudes actualizar paciente without token", async () => {
+      const response = await request.delete(
+        "/inter-mongo-pacientes/entrada/solicitudes-actualizacion"
+      );
+
+      expect(response.status).toBe(401);
+
+      expect(response.body.error).toBe("Acceso no autorizado.");
+    });
+    it("Should not delete solicitudes actualizar paciente with invalid token", async () => {
       const response = await request
         .delete("/inter-mongo-pacientes/entrada/solicitudes-actualizacion")
         .set("Authorization", "no-token");
@@ -67,39 +100,52 @@ describe("Endpoints pacientes entrada", () => {
 
       expect(response.body.error).toBe("Acceso no autorizado.");
     });
-    it("Should delete solicitudes", async () => {
+    it("Should not delete solicitudes actualizar paciente without codigo establecimiento", async () => {
       const response = await request
         .delete("/inter-mongo-pacientes/entrada/solicitudes-actualizacion")
+        .set("Authorization", token);
+
+      expect(response.status).toBe(400);
+
+      expect(response.body.error).toBe(
+        "Se debe enviar el codigo del establecimiento."
+      );
+    });
+    it("Should delete solicitudes", async () => {
+      const response = await request
+        .delete(
+          "/inter-mongo-pacientes/entrada/solicitudes-actualizacion?codigoEstablecimiento=HRA"
+        )
         .set("Authorization", token)
-        .send([1, 4, 2, 5]);
+        .send(["10771131-7", "44444444-4", "17724699-9", "55555555-5"]);
 
       expect(response.status).toBe(200);
 
       const solicitudesBD = await PacientesActualizados.find().exec();
 
-      expect(solicitudesBD.length).toBe(1);
+      expect(solicitudesBD.length).toBe(2);
 
       const { respuesta } = response.body;
 
       expect(respuesta.length).toBe(4);
       expect(respuesta).toEqual([
         {
-          afectado: 1,
+          afectado: "10771131-7",
           realizado: true,
           error: "",
         },
         {
-          afectado: 4,
+          afectado: "44444444-4",
           realizado: true,
           error: "La solicitud no existe.",
         },
         {
-          afectado: 2,
+          afectado: "17724699-9",
           realizado: true,
           error: "",
         },
         {
-          afectado: 5,
+          afectado: "55555555-5",
           realizado: true,
           error: "La solicitud no existe.",
         },
