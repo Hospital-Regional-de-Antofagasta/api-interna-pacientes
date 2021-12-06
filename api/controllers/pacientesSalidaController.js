@@ -4,27 +4,63 @@ exports.create = async (req, res) => {
   const pacientesInsertados = [];
   try {
     const pacientes = req.body;
+    const { codigoEstablecimiento } = req.query;
     for (let paciente of pacientes) {
       try {
-        const filter = { correlativo: paciente.correlativo };
-        const pacienteAInsertar = await Pacientes.find(filter).exec();
-        if (pacienteAInsertar.length > 0) {
+        const pacientesMismoRut = await Pacientes.find({
+          rut: paciente.rut,
+        }).exec();
+        // si existen multiples pacientes con el mismo rut, indicar el error
+        if (pacientesMismoRut.length > 1) {
           pacientesInsertados.push({
-            afectado: paciente.correlativo,
-            realizado: true,
-            error: "El paciente ya existe.",
+            afectado: paciente.rut,
+            realizado: false,
+            error: `Existen ${pacientesMismoRut.length} pacientes con el rut ${paciente.rut}.`,
           });
           continue;
         }
+        // si el paciente ya existe, verificar si ya existe en el hospital
+        if (pacientesMismoRut.length > 0) {
+          const pacienteMismoRut = pacientesMismoRut[0];
+          // si ya existe en el hospital, indicar el error y decir que se inserto
+          if (
+            pacienteMismoRut.codigosEstablecimientos.includes(
+              codigoEstablecimiento
+            )
+          ) {
+            pacientesInsertados.push({
+              afectado: paciente.rut,
+              realizado: true,
+              error: "El paciente ya existe.",
+            });
+            continue;
+          }
+          // si no existe en el hospital, agregar el codigo sin modificar al paciente
+          pacienteMismoRut.codigosEstablecimientos.push(codigoEstablecimiento);
+          const response = await Pacientes.updateOne(
+            { rut: pacienteMismoRut.rut },
+            pacienteMismoRut
+          ).exec();
+          pacientesInsertados.push({
+            afectado: pacienteMismoRut.rut,
+            realizado: response.modifiedCount ? true : false,
+            error: response.modifiedCount
+              ? ""
+              : "El codigoEstablecimiento no fue agregado al paciente.",
+          });
+          continue;
+        }
+        // si el paciente no existe, se inserta
+        paciente.codigosEstablecimientos = [codigoEstablecimiento];
         await Pacientes.create(paciente);
         pacientesInsertados.push({
-          afectado: paciente.correlativo,
+          afectado: paciente.rut,
           realizado: true,
           error: "",
         });
       } catch (error) {
         pacientesInsertados.push({
-          afectado: paciente.correlativo,
+          afectado: paciente.rut,
           realizado: false,
           error: `${error.name} - ${error.message}`,
         });
@@ -45,30 +81,37 @@ exports.updateMany = async (req, res) => {
   const pacientesActualizados = [];
   try {
     const pacientes = req.body;
+    const { codigoEstablecimiento } = req.query;
     for (let paciente of pacientes) {
       try {
-        const filter = { correlativo: paciente.correlativo };
-        const pacienteAActualizar = await Pacientes.find(filter).exec();
-        if (pacienteAActualizar.length === 0) {
+        const pacientesMismoRut = await Pacientes.find({
+          rut: paciente.rut,
+        }).exec();
+        // si el paciente no existe, reportar el error
+        if (pacientesMismoRut.length === 0) {
           pacientesActualizados.push({
-            afectado: paciente.correlativo,
+            afectado: paciente.rut,
             realizado: false,
             error: "El paciente no existe.",
           });
           continue;
         }
-        if (pacienteAActualizar.length > 1) {
+        // si existen multiples pacientes con el mismo rut, indicar el error
+        if (pacientesMismoRut.length > 1) {
           pacientesActualizados.push({
-            afectado: paciente.correlativo,
+            afectado: paciente.rut,
             realizado: false,
-            error: `${pacienteAActualizar.length} pacientes encontrados.`,
+            error: `Existen ${pacientesMismoRut.length} pacientes con el rut ${paciente.rut}.`,
           });
           continue;
         }
-        // solo encontro uno para actualizar
-        const response = await Pacientes.updateOne(filter, paciente).exec();
+        // si solo encontro uno para actualizar, lo actualiza
+        const response = await Pacientes.updateOne(
+          { rut: paciente.rut },
+          paciente
+        ).exec();
         pacientesActualizados.push({
-          afectado: paciente.correlativo,
+          afectado: paciente.rut,
           realizado: response.modifiedCount ? true : false,
           error: response.modifiedCount
             ? ""
@@ -76,7 +119,7 @@ exports.updateMany = async (req, res) => {
         });
       } catch (error) {
         pacientesActualizados.push({
-          afectado: paciente.correlativo,
+          afectado: paciente.rut,
           realizado: false,
           error: `${error.name} - ${error.message}`,
         });
@@ -93,41 +136,67 @@ exports.updateMany = async (req, res) => {
   }
 };
 
-// Registrar pacientes en la bd MongoDB.
 exports.deleteMany = async (req, res) => {
   const pacientesEliminados = [];
   try {
-    const correlativosPacientes = req.body;
-    for (let correlativo of correlativosPacientes) {
+    const rutsPacientes = req.body;
+    const { codigoEstablecimiento } = req.query;
+    for (let rut of rutsPacientes) {
       try {
-        const filter = { correlativo };
-        const pacienteAEliminar = await Pacientes.find(filter).exec();
-        if (pacienteAEliminar.length === 0) {
+        const pacientesMismoRut = await Pacientes.find({ rut }).exec();
+        // si el paciente no existe, reportar el error e indicar que se elimino
+        if (pacientesMismoRut.length === 0) {
           pacientesEliminados.push({
-            afectado: correlativo,
+            afectado: rut,
             realizado: true,
             error: "El paciente no existe.",
           });
           continue;
         }
-        if (pacienteAEliminar.length > 1) {
+        // si existen multiples pacientes con el mismo rut, indicar el error
+        if (pacientesMismoRut.length > 1) {
           pacientesEliminados.push({
-            afectado: correlativo,
+            afectado: rut,
             realizado: false,
-            error: `${pacienteAEliminar.length} pacientes encontrados.`,
+            error: `Existen ${pacientesMismoRut.length} pacientes con el rut ${rut}.`,
           });
           continue;
         }
-        // solo encontro uno para eliminar
-        const response = await Pacientes.deleteOne(filter).exec();
+        // si solo encontro uno para eliminar, remueve el codigoEstablecimiento y si
+        // no hay tiene mas codigosEstablecimientos lo elimina
+        const pacienteMismoRut = pacientesMismoRut[0];
+        console.log("original", pacienteMismoRut.codigosEstablecimientos)
+        const index = pacienteMismoRut.codigosEstablecimientos.indexOf(codigoEstablecimiento)
+        if (index > -1) {
+          pacienteMismoRut.codigosEstablecimientos.splice(index, 1);
+        }
+        console.log("removido", pacienteMismoRut.codigosEstablecimientos)
+        // si aun tiene codigosEstablecimientos, lo actualiza y no lo elimina
+        if (pacienteMismoRut.codigosEstablecimientos.length > 0) {
+          const response = await Pacientes.updateOne(
+            { rut: pacienteMismoRut.rut },
+            pacienteMismoRut
+          ).exec();
+          pacientesInsertados.push({
+            afectado: pacienteMismoRut.rut,
+            realizado: response.modifiedCount ? true : false,
+            error: response.modifiedCount
+              ? ""
+              : "El codigoEstablecimiento no fue eliminado del paciente.",
+          });
+          continue;
+        }
+        const response = await Pacientes.deleteOne({ rut }).exec();
         pacientesEliminados.push({
-          afectado: correlativo,
+          afectado: rut,
           realizado: response.deletedCount ? true : false,
           error: response.deletedCount ? "" : "El paciente no fue eliminado.",
         });
       } catch (error) {
+        console.log(error.name)
+        console.log(error.message)
         pacientesEliminados.push({
-          afectado: correlativo,
+          afectado: rut,
           realizado: false,
           error: `${error.name} - ${error.message}`,
         });

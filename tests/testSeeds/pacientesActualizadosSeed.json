@@ -1,8 +1,7 @@
 [
   {
     "idPaciente":"000000000016",
-    "correlativo": 1,
-    "numeroPaciente":16,
+    "rut": "10771131-7",
     "direccion":"nombre de calle",
     "direccionNumero":"123",
     "detallesDireccion":"casa 20",
@@ -13,12 +12,12 @@
     "telefonoFijo":"123456",
     "telefonoMovil":"94567986",
     "correoCuerpo":"correo",
-    "correoExtension":"correo.com"
+    "correoExtension":"correo.com",
+    "codigoEstablecimiento": "HRA"
   },
   {
     "idPaciente":"000000000021",
-    "correlativo": 2,
-    "numeroPaciente":21,
+    "rut": "17724699-9",
     "direccion":"nombre pasaje",
     "direccionNumero":"1234",
     "detallesDireccion":"depto 303",
@@ -29,12 +28,12 @@
     "telefonoFijo":"789456",
     "telefonoMovil":"96845974",
     "correoCuerpo":"correo",
-    "correoExtension":"correo.com"
+    "correoExtension":"correo.com",
+    "codigoEstablecimiento": "HRA"
   },
   {
     "idPaciente":"000000000020",
-    "correlativo": 3,
-    "numeroPaciente":20,
+    "rut": "18502151-3",
     "direccion":"nombre pasaje",
     "direccionNumero":"1234",
     "detallesDireccion":"depto 303",
@@ -45,6 +44,23 @@
     "telefonoFijo":"789456",
     "telefonoMovil":"96845974",
     "correoCuerpo":"correo",
-    "correoExtension":"correo.com"
+    "correoExtension":"correo.com",
+    "codigoEstablecimiento": "HRA"
+  },
+  {
+    "idPaciente":"000000000020",
+    "rut": "18502151-3",
+    "direccion":"nombre pasaje",
+    "direccionNumero":"1234",
+    "detallesDireccion":"depto 303",
+    "direccionPoblacion":"poblacion",
+    "codigoComuna":"02",
+    "codigoCiudad":"03",
+    "codigoRegion":"01",
+    "telefonoFijo":"789456",
+    "telefonoMovil":"96845974",
+    "correoCuerpo":"correo",
+    "correoExtension":"correo.com",
+    "codigoEstablecimiento": "HC"
   }
 ]

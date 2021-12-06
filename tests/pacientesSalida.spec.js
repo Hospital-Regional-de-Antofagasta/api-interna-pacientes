@@ -11,24 +11,8 @@ const request = supertest(app);
 
 const token = process.env.HRADB_A_MONGODB_SECRET;
 
-beforeEach(async () => {
-  await mongoose.disconnect();
-  await mongoose.connect(`${process.env.MONGO_URI}/pacientes_salida_test`, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  });
-  await Pacientes.create(pacientesSeed);
-});
-
-afterEach(async () => {
-  await Pacientes.deleteMany();
-  await mongoose.disconnect();
-});
-
 const pacienteGuardar = {
-  numeroPaciente: 100,
-  correlativo: 112,
-  rut: "1-1",
+  rut: "99999999-9",
   apellidoPaterno: "Apellido Paterno Paciente",
   apellidoMaterno: "Apellido Materno Paciente",
   nombre: "Nombre Paciente",
@@ -46,13 +30,30 @@ const pacienteGuardar = {
   nombreSocial: null,
 };
 
+const pacienteExistenteGuardar = {
+  rut: "22222222-2",
+  apellidoPaterno: "RIVERA",
+  apellidoMaterno: "ARANCIBIA",
+  nombre: "CAROLINA DEL PILAR",
+  direccion: " ",
+  direccionNumero: " ",
+  detallesDireccion: " ",
+  direccionPoblacion: "VILLA CASPAÑA",
+  codigoComuna: "0",
+  codigoCiudad: "0",
+  codigoRegion: "01",
+  telefonoFijo: "",
+  telefonoMovil: " 94924483",
+  correoCuerpo: null,
+  correoExtension: null,
+  nombreSocial: null,
+};
+
 const pacienteActualizar = {
-  numeroPaciente: 16,
-  correlativo: 1,
   rut: "10771131-7",
-  apellidoPaterno: "LAZO",
-  apellidoMaterno: "ZAMBRA",
-  nombre: "JACQUELINE CLOTILDE",
+  apellidoPaterno: "LAZOo",
+  apellidoMaterno: "ZAMBRAa",
+  nombre: "JACQUELINE CLOTILDEe",
   direccion: "calle",
   direccionNumero: "123",
   detallesDireccion: "casa 21",
@@ -67,118 +68,211 @@ const pacienteActualizar = {
   nombreSocial: "social",
 };
 
+beforeEach(async () => {
+  await mongoose.disconnect();
+  await mongoose.connect(`${process.env.MONGO_URI}/pacientes_salida_test`, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  });
+  await Pacientes.create(pacientesSeed);
+});
+
+afterEach(async () => {
+  await Pacientes.deleteMany();
+  await mongoose.disconnect();
+});
+
 describe("Endpoints pacientes salida", () => {
   describe("POST /inter-mongo-pacientes/salida", () => {
-    // Test de autorización.
-    it("Should not save paciente", async () => {
-      // Ejecutar endpoint
+    it("Should not save paciente without token", async () => {
+      const response = await request
+        .post("/inter-mongo-pacientes/salida")
+        .send(pacienteGuardar);
+
+      expect(response.status).toBe(401);
+
+      expect(response.body.error).toBe("Acceso no autorizado.");
+
+      const pacienteDespues = await Pacientes.findOne({
+        rut: pacienteGuardar.rut,
+      });
+
+      expect(pacienteDespues).toBeFalsy();
+    });
+    it("Should not save paciente with invalid token", async () => {
       const response = await request
         .post("/inter-mongo-pacientes/salida")
         .set("Authorization", "no-token")
         .send(pacienteGuardar);
-      // Obtener el paciente que no se guardó.
-      const pacienteObtenido = await Pacientes.findOne({
-        numeroPaciente: pacienteGuardar.numeroPaciente,
-      });
-      // Verificar que retornó el status code sea el correcto.
+
       expect(response.status).toBe(401);
-      // Debe entregar el mensaje
+
       expect(response.body.error).toBe("Acceso no autorizado.");
-      // No se debe haber encontrado el paciente.
-      expect(pacienteObtenido).toBeFalsy();
+
+      const pacienteDespues = await Pacientes.findOne({
+        rut: pacienteGuardar.rut,
+      });
+
+      expect(pacienteDespues).toBeFalsy();
     });
-    // Test crear paciente.
-    it("Should save paciente", async () => {
-      // Ejecutar endpoint
+    it("Should not save paciente without codigo establecimiento", async () => {
       const response = await request
         .post("/inter-mongo-pacientes/salida")
         .set("Authorization", token)
-        .send([pacienteGuardar]);
-      // Obtener el paciente que se guardó.
-      const pacienteObtenido = await Pacientes.findOne({
-        numeroPaciente: pacienteGuardar.numeroPaciente,
-      }).exec();
-      // Verificar que retornó el status code sea el correcto.
-      expect(response.status).toBe(201);
-      // Verificar que el paciente obtenido de la bd es igual al que se guardó.
-      expect(pacienteObtenido.numeroPaciente.numero).toBe(
-        pacienteGuardar.numeroPaciente.numero
+        .send(pacienteGuardar);
+
+      expect(response.status).toBe(400);
+
+      expect(response.body.error).toBe(
+        "Se debe enviar el codigo del establecimiento."
       );
-      expect(pacienteObtenido.rut).toBe(pacienteGuardar.rut);
-      expect(pacienteObtenido.apellidoPaterno).toBe(
+
+      const pacienteDespues = await Pacientes.findOne({
+        rut: pacienteGuardar.rut,
+      });
+
+      expect(pacienteDespues).toBeFalsy();
+    });
+    it("Should save paciente", async () => {
+      const response = await request
+        .post("/inter-mongo-pacientes/salida?codigoEstablecimiento=HRA")
+        .set("Authorization", token)
+        .send([pacienteGuardar]);
+
+      expect(response.status).toBe(201);
+
+      const pacienteDespues = await Pacientes.findOne({
+        rut: pacienteGuardar.rut,
+      }).exec();
+
+      expect(pacienteDespues).toBeTruthy();
+      expect(pacienteDespues.rut).toBe(pacienteGuardar.rut);
+      expect(pacienteDespues.apellidoPaterno).toBe(
         pacienteGuardar.apellidoPaterno
       );
-      expect(pacienteObtenido.apellidoMaterno).toBe(
+      expect(pacienteDespues.apellidoMaterno).toBe(
         pacienteGuardar.apellidoMaterno
       );
-      expect(pacienteObtenido.nombre).toBe(pacienteGuardar.nombre);
-      expect(pacienteObtenido.direccion).toBe(pacienteGuardar.direccion);
-      expect(pacienteObtenido.direccionNumero).toBe(
+      expect(pacienteDespues.nombre).toBe(pacienteGuardar.nombre);
+      expect(pacienteDespues.direccion).toBe(pacienteGuardar.direccion);
+      expect(pacienteDespues.direccionNumero).toBe(
         pacienteGuardar.direccionNumero
       );
-      expect(pacienteObtenido.detallesDireccion).toBe(
+      expect(pacienteDespues.detallesDireccion).toBe(
         pacienteGuardar.detallesDireccion
       );
-      expect(pacienteObtenido.direccionPoblacion).toBe(
+      expect(pacienteDespues.direccionPoblacion).toBe(
         pacienteGuardar.direccionPoblacion
       );
-      expect(pacienteObtenido.codigoComuna).toBe(pacienteGuardar.codigoComuna);
-      expect(pacienteObtenido.codigoCiudad).toBe(pacienteGuardar.codigoCiudad);
-      expect(pacienteObtenido.codigoRegion).toBe(pacienteGuardar.codigoRegion);
-      expect(pacienteObtenido.telefonoFijo).toBe(pacienteGuardar.telefonoFijo);
-      expect(pacienteObtenido.telefonoMovil).toBe(
-        pacienteGuardar.telefonoMovil
-      );
-      expect(pacienteObtenido.correoCuerpo).toBe(pacienteGuardar.correoCuerpo);
-      expect(pacienteObtenido.correoExtension).toBe(
+      expect(pacienteDespues.codigoComuna).toBe(pacienteGuardar.codigoComuna);
+      expect(pacienteDespues.codigoCiudad).toBe(pacienteGuardar.codigoCiudad);
+      expect(pacienteDespues.codigoRegion).toBe(pacienteGuardar.codigoRegion);
+      expect(pacienteDespues.telefonoFijo).toBe(pacienteGuardar.telefonoFijo);
+      expect(pacienteDespues.telefonoMovil).toBe(pacienteGuardar.telefonoMovil);
+      expect(pacienteDespues.correoCuerpo).toBe(pacienteGuardar.correoCuerpo);
+      expect(pacienteDespues.correoExtension).toBe(
         pacienteGuardar.correoExtension
       );
-      expect(pacienteObtenido.nombreSocial).toBe(pacienteGuardar.nombreSocial);
+      expect(pacienteDespues.nombreSocial).toBe(pacienteGuardar.nombreSocial);
+      expect(pacienteDespues.codigosEstablecimientos[0]).toBe("HRA");
+    });
+    it("Should save paciente that exists in another hospital", async () => {
+      const pacienteAntes = await Pacientes.findOne({
+        rut: pacienteExistenteGuardar.rut,
+      }).exec();
+
+      const response = await request
+        .post("/inter-mongo-pacientes/salida?codigoEstablecimiento=HRA")
+        .set("Authorization", token)
+        .send([pacienteExistenteGuardar]);
+
+      expect(response.status).toBe(201);
+
+      const pacienteDespues = await Pacientes.findOne({
+        rut: pacienteExistenteGuardar.rut,
+      }).exec();
+
+      expect(pacienteDespues.rut).toBe(pacienteAntes.rut);
+      expect(pacienteDespues.apellidoPaterno).toBe(
+        pacienteAntes.apellidoPaterno
+      );
+      expect(pacienteDespues.apellidoMaterno).toBe(
+        pacienteAntes.apellidoMaterno
+      );
+      expect(pacienteDespues.nombre).toBe(pacienteAntes.nombre);
+      expect(pacienteDespues.direccion).toBe(pacienteAntes.direccion);
+      expect(pacienteDespues.direccionNumero).toBe(
+        pacienteAntes.direccionNumero
+      );
+      expect(pacienteDespues.detallesDireccion).toBe(
+        pacienteAntes.detallesDireccion
+      );
+      expect(pacienteDespues.direccionPoblacion).toBe(
+        pacienteAntes.direccionPoblacion
+      );
+      expect(pacienteDespues.codigoComuna).toBe(pacienteAntes.codigoComuna);
+      expect(pacienteDespues.codigoCiudad).toBe(pacienteAntes.codigoCiudad);
+      expect(pacienteDespues.codigoRegion).toBe(pacienteAntes.codigoRegion);
+      expect(pacienteDespues.telefonoFijo).toBe(pacienteAntes.telefonoFijo);
+      expect(pacienteDespues.telefonoMovil).toBe(pacienteAntes.telefonoMovil);
+      expect(pacienteDespues.correoCuerpo).toBe(pacienteAntes.correoCuerpo);
+      expect(pacienteDespues.correoExtension).toBe(
+        pacienteAntes.correoExtension
+      );
+      expect(pacienteDespues.nombreSocial).toBe(pacienteAntes.nombreSocial);
+      expect(pacienteDespues.codigosEstablecimientos[0]).toBe("HC");
+      expect(pacienteDespues.codigosEstablecimientos[1]).toBe("HRA");
     });
     it("Should save multiple pacientes and return errors", async () => {
       const response = await request
-        .post("/inter-mongo-pacientes/salida")
+        .post("/inter-mongo-pacientes/salida?codigoEstablecimiento=HRA")
         .set("Authorization", token)
         .send(pacientesAInsertarSeed);
 
-      const pacientesBD = await Pacientes.find().exec();
-
       expect(response.status).toBe(201);
 
-      expect(pacientesBD.length).toBe(6);
+      const pacientesBD = await Pacientes.find().exec();
+
+      expect(pacientesBD.length).toBe(8);
 
       const { respuesta } = response.body;
 
-      expect(respuesta.length).toBe(6);
+      expect(respuesta.length).toBe(7);
       expect(respuesta).toEqual([
         {
-          afectado: 2,
+          afectado: "17724699-9",
           realizado: true,
           error: "El paciente ya existe.",
         },
         {
-          afectado: 11,
+          afectado: "33333333-3",
           realizado: true,
           error: "",
         },
         {
-          afectado: 12,
-          realizado: false,
-          error: "MongoServerError - E11000 duplicate key error collection: pacientes_salida_test.pacientes index: _id_ dup key: { _id: ObjectId('303030303030303030303231') }",
+          afectado: "17724699-9",
+          realizado: true,
+          error:
+            "El paciente ya existe.",
         },
         {
-          afectado: 13,
+          afectado: "44444444-4",
           realizado: true,
           error: "",
         },
         {
-          afectado: 14,
+          afectado: "66666666-6",
           realizado: false,
           error:
-            "MongoServerError - E11000 duplicate key error collection: pacientes_salida_test.pacientes index: _id_ dup key: { _id: ObjectId('313030303030303030303136') }",
+            "MongoServerError - E11000 duplicate key error collection: pacientes_salida_test.pacientes index: _id_ dup key: { _id: ObjectId('303030303030303030303136') }",
         },
         {
-          afectado: 15,
+          afectado: "55555555-5",
+          realizado: true,
+          error: "",
+        },
+        {
+          afectado: "22222222-2",
           realizado: true,
           error: "",
         },
@@ -186,7 +280,30 @@ describe("Endpoints pacientes salida", () => {
     });
   });
   describe("PUT /inter-mongo-pacientes/salida", () => {
-    it("Should not update paciente", async () => {
+    it("Should not update paciente without token", async () => {
+      const pacienteAntes = await Pacientes.findOne({
+        rut: pacienteActualizar.rut,
+      }).exec();
+
+      const response = await request
+        .put("/inter-mongo-pacientes/salida")
+        .send(pacienteActualizar);
+
+      expect(response.status).toBe(401);
+
+      expect(response.body.error).toBe("Acceso no autorizado.");
+
+      const pacienteDespues = await Pacientes.findOne({
+        rut: pacienteActualizar.rut,
+      }).exec();
+
+      expect(pacienteAntes).toEqual(pacienteDespues);
+    });
+    it("Should not update paciente with invalid token", async () => {
+      const pacienteAntes = await Pacientes.findOne({
+        rut: pacienteActualizar.rut,
+      }).exec();
+
       const response = await request
         .put("/inter-mongo-pacientes/salida")
         .set("Authorization", "no-token")
@@ -195,68 +312,95 @@ describe("Endpoints pacientes salida", () => {
       expect(response.status).toBe(401);
 
       expect(response.body.error).toBe("Acceso no autorizado.");
+
+      const pacienteDespues = await Pacientes.findOne({
+        rut: pacienteActualizar.rut,
+      }).exec();
+
+      expect(pacienteAntes).toEqual(pacienteDespues);
     });
-    it("Should update paciente", async () => {
+    it("Should not update paciente without codigo establecimiento", async () => {
+      const pacienteAntes = await Pacientes.findOne({
+        rut: pacienteActualizar.rut,
+      }).exec();
+
       const response = await request
         .put("/inter-mongo-pacientes/salida")
         .set("Authorization", token)
+        .send(pacienteActualizar);
+
+      expect(response.status).toBe(400);
+
+      expect(response.body.error).toBe(
+        "Se debe enviar el codigo del establecimiento."
+      );
+
+      const pacienteDespues = await Pacientes.findOne({
+        rut: pacienteActualizar.rut,
+      }).exec();
+
+      expect(pacienteAntes).toEqual(pacienteDespues);
+    });
+    it("Should update paciente", async () => {
+      const response = await request
+        .put("/inter-mongo-pacientes/salida?codigoEstablecimiento=HRA")
+        .set("Authorization", token)
         .send([pacienteActualizar]);
 
-      const pacienteObtenido = await Pacientes.findOne({
-        correlativo: pacienteActualizar.correlativo,
-      }).exec();
-      // Verificar que retornó el status code sea el correcto.
       expect(response.status).toBe(200);
-      // Verificar que el paciente obtenido es el mismo al que se actualizó.
-      expect(pacienteObtenido.numeroPaciente).toBe(
-        pacienteActualizar.numeroPaciente
-      );
-      expect(pacienteObtenido.rut).toBe(pacienteActualizar.rut);
-      expect(pacienteObtenido.apellidoPaterno).toBe(
+
+      const pacienteDespues = await Pacientes.findOne({
+        rut: pacienteActualizar.rut,
+      }).exec();
+
+      expect(pacienteDespues.rut).toBe(pacienteActualizar.rut);
+      expect(pacienteDespues.apellidoPaterno).toBe(
         pacienteActualizar.apellidoPaterno
       );
-      expect(pacienteObtenido.apellidoMaterno).toBe(
+      expect(pacienteDespues.apellidoMaterno).toBe(
         pacienteActualizar.apellidoMaterno
       );
-      expect(pacienteObtenido.nombre).toBe(pacienteActualizar.nombre);
-      expect(pacienteObtenido.direccion).toBe(pacienteActualizar.direccion);
-      expect(pacienteObtenido.direccionNumero).toBe(
+      expect(pacienteDespues.nombre).toBe(pacienteActualizar.nombre);
+      expect(pacienteDespues.direccion).toBe(pacienteActualizar.direccion);
+      expect(pacienteDespues.direccionNumero).toBe(
         pacienteActualizar.direccionNumero
       );
-      expect(pacienteObtenido.detallesDireccion).toBe(
+      expect(pacienteDespues.detallesDireccion).toBe(
         pacienteActualizar.detallesDireccion
       );
-      expect(pacienteObtenido.direccionPoblacion).toBe(
+      expect(pacienteDespues.direccionPoblacion).toBe(
         pacienteActualizar.direccionPoblacion
       );
-      expect(pacienteObtenido.codigoComuna).toBe(
+      expect(pacienteDespues.codigoComuna).toBe(
         pacienteActualizar.codigoComuna
       );
-      expect(pacienteObtenido.codigoCiudad).toBe(
+      expect(pacienteDespues.codigoCiudad).toBe(
         pacienteActualizar.codigoCiudad
       );
-      expect(pacienteObtenido.codigoRegion).toBe(
+      expect(pacienteDespues.codigoRegion).toBe(
         pacienteActualizar.codigoRegion
       );
-      expect(pacienteObtenido.telefonoFijo).toBe(
+      expect(pacienteDespues.telefonoFijo).toBe(
         pacienteActualizar.telefonoFijo
       );
-      expect(pacienteObtenido.telefonoMovil).toBe(
+      expect(pacienteDespues.telefonoMovil).toBe(
         pacienteActualizar.telefonoMovil
       );
-      expect(pacienteObtenido.correoCuerpo).toBe(
+      expect(pacienteDespues.correoCuerpo).toBe(
         pacienteActualizar.correoCuerpo
       );
-      expect(pacienteObtenido.correoExtension).toBe(
+      expect(pacienteDespues.correoExtension).toBe(
         pacienteActualizar.correoExtension
       );
-      expect(pacienteObtenido.nombreSocial).toBe(
+      expect(pacienteDespues.nombreSocial).toBe(
         pacienteActualizar.nombreSocial
       );
+      expect(pacienteDespues.codigosEstablecimientos[0]).toBe("HRA");
     });
+    // it("Should update paciente that exists in another hospital", async () => {});
     it("Should update multiple pacientes and return errors", async () => {
       const response = await request
-        .put("/inter-mongo-pacientes/salida")
+        .put("/inter-mongo-pacientes/salida?codigoEstablecimiento=HRA")
         .set("Authorization", token)
         .send(pacientesAActualizarSeed);
 
@@ -265,25 +409,26 @@ describe("Endpoints pacientes salida", () => {
       const { respuesta } = response.body;
 
       expect(respuesta.length).toBe(4);
+      console.log(respuesta)
       expect(respuesta).toEqual([
         {
-          afectado: 4,
+          afectado: "33333333-3",
           realizado: false,
           error: "El paciente no existe.",
         },
         {
-          afectado: 1,
+          afectado: "10771131-7",
           realizado: true,
           error: "",
         },
         {
-          afectado: 2,
+          afectado: "17724699-9",
           realizado: false,
           error:
             "MongoServerError - Performing an update on the path '_id' would modify the immutable field '_id'",
         },
         {
-          afectado: 2,
+          afectado: "17724699-9",
           realizado: true,
           error: "",
         },
@@ -291,32 +436,98 @@ describe("Endpoints pacientes salida", () => {
     });
   });
   describe("DELETE /inter-mongo-pacientes/salida", () => {
-    it("Should not delete paciente", async () => {
+    it("Should not delete paciente without token", async () => {
+      const pacienteAntes = await Pacientes.findOne({
+        rut: "17724699-9",
+      }).exec();
+
       const response = await request
         .delete("/inter-mongo-pacientes/salida")
-        .set("Authorization", "no-token")
-        .send([2]);
+        .send(["17724699-9"]);
 
       expect(response.status).toBe(401);
 
       expect(response.body.error).toBe("Acceso no autorizado.");
+
+      const pacienteDespues = await Pacientes.findOne({
+        rut: "17724699-9",
+      }).exec();
+
+      expect(pacienteAntes).toEqual(pacienteDespues);
     });
-    it("Should delete paciente", async () => {
+    it("Should not delete paciente with invalid token", async () => {
+      const pacienteAntes = await Pacientes.findOne({
+        rut: "17724699-9",
+      }).exec();
+
+      const response = await request
+        .delete("/inter-mongo-pacientes/salida")
+        .set("Authorization", "no-token")
+        .send(["17724699-9"]);
+
+      expect(response.status).toBe(401);
+
+      expect(response.body.error).toBe("Acceso no autorizado.");
+
+      const pacienteDespues = await Pacientes.findOne({
+        rut: "17724699-9",
+      }).exec();
+
+      expect(pacienteAntes).toEqual(pacienteDespues);
+    });
+    it("Should not delete paciente without codigo establecimiento", async () => {
+      const pacienteAntes = await Pacientes.findOne({
+        rut: "17724699-9",
+      }).exec();
+
       const response = await request
         .delete("/inter-mongo-pacientes/salida")
         .set("Authorization", token)
-        .send([2]);
+        .send(["17724699-9"]);
 
-      const pacienteObtenido = await Pacientes.findOne({
-        correlativo: 2,
+      expect(response.status).toBe(400);
+
+      expect(response.body.error).toBe(
+        "Se debe enviar el codigo del establecimiento."
+      );
+
+      const pacienteDespues = await Pacientes.findOne({
+        rut: "17724699-9",
       }).exec();
-      // Verificar que retornó el status code sea el correcto.
+
+      expect(pacienteAntes).toEqual(pacienteDespues);
+    });
+    it("Should delete paciente", async () => {
+      const response = await request
+        .delete("/inter-mongo-pacientes/salida?codigoEstablecimiento=HRA")
+        .set("Authorization", token)
+        .send(["17724699-9"]);
+
+      const pacienteDespues = await Pacientes.findOne({
+        rut: "17724699-9",
+      }).exec();
+
       expect(response.status).toBe(200);
-      expect(pacienteObtenido).toBeFalsy();
+      expect(pacienteDespues).toBeFalsy();
+    });
+    it("Should delete paciente that exists in another hospital", async () => {
+      const response = await request
+        .delete("/inter-mongo-pacientes/salida?codigoEstablecimiento=HRA")
+        .set("Authorization", token)
+        .send(["11111111-1"]);
+
+      const pacienteDespues = await Pacientes.findOne({
+        rut: "11111111-1",
+      }).exec();
+
+      expect(response.status).toBe(200);
+
+      expect(pacienteDespues).toBeTruthy();
+      expect(pacienteDespues.codigosEstablecimientos).toEqual(["HC"]);
     });
     it("Should delete multiple pacientes and return errors", async () => {
       const response = await request
-        .delete("/inter-mongo-pacientes/salida")
+        .delete("/inter-mongo-pacientes/salida?codigoEstablecimiento=HRA")
         .set("Authorization", token)
         .send(pacientesAEliminarSeed);
 
@@ -324,29 +535,29 @@ describe("Endpoints pacientes salida", () => {
 
       const pacientesBD = await Pacientes.find().exec();
 
-      expect(pacientesBD.length).toBe(1);
+      expect(pacientesBD.length).toBe(3);
 
       const { respuesta } = response.body;
 
       expect(respuesta.length).toBe(4);
       expect(respuesta).toEqual([
         {
-          afectado: 4,
+          afectado: "44444444-4",
           realizado: true,
           error: "El paciente no existe.",
         },
         {
-          afectado: 1,
+          afectado: "10771131-7",
           realizado: true,
           error: "",
         },
         {
-          afectado: 5,
+          afectado: "55555555-5",
           realizado: true,
           error: "El paciente no existe.",
         },
         {
-          afectado: 2,
+          afectado: "17724699-9",
           realizado: true,
           error: "",
         },

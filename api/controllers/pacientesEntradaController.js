@@ -2,14 +2,16 @@ const PacientesActualizados = require("../models/PacientesActualizados");
 
 exports.getSolicitudesActualizacion = async (req, res) => {
   try {
-    const pacientesActualizados = await PacientesActualizados.find()
+    const { codigoEstablecimiento } = req.query;
+    const pacientesActualizados = await PacientesActualizados.find({
+      codigoEstablecimiento,
+    })
       .limit(100)
       .exec();
     res.status(200).send({ respuesta: pacientesActualizados });
   } catch (error) {
     res.status(500).send({
       error: `Pacientes getPacientesActualizados: ${error.name} - ${error.message}`,
-      respuesta: [],
     });
   }
 };
@@ -17,39 +19,45 @@ exports.getSolicitudesActualizacion = async (req, res) => {
 exports.deleteSolicitudesActualizacion = async (req, res) => {
   const solicitudesEliminadas = [];
   try {
-    const correlativosPacientes = req.body;
-    for (let correlativo of correlativosPacientes) {
+    const rutsPacientes = req.body;
+    const { codigoEstablecimiento } = req.query;
+    for (let rut of rutsPacientes) {
       try {
-        const filter = { correlativo };
-        const solicitudAEliminar = await PacientesActualizados.find(
-          filter
-        ).exec();
+        const solicitudAEliminar = await PacientesActualizados.find({
+          rut,
+          codigoEstablecimiento,
+        }).exec();
+        // si no existe la solicitud, reportar el error e indicar que se elimino
         if (solicitudAEliminar.length === 0) {
           solicitudesEliminadas.push({
-            afectado: correlativo,
+            afectado: rut,
             realizado: true,
             error: "La solicitud no existe.",
           });
           continue;
         }
+        // si existen multiples solicitudes con el mismo rut, indicar el error
         if (solicitudAEliminar.length > 1) {
           solicitudesEliminadas.push({
-            afectado: correlativo,
+            afectado: rut,
             realizado: false,
-            error: `${solicitudAEliminar.length} solicitudes encontradas.`,
+            error: `Existen ${solicitudAEliminar.length} pacientes con el rut ${rut}.`,
           });
           continue;
         }
-        // solo encontro una para eliminar
-        const response = await PacientesActualizados.deleteOne(filter).exec();
+        // si solo se encontro una solicitud para eliminar
+        const response = await PacientesActualizados.deleteOne({
+          rut,
+          codigoEstablecimiento,
+        }).exec();
         solicitudesEliminadas.push({
-          afectado: correlativo,
+          afectado: rut,
           realizado: response.deletedCount ? true : false,
           error: response.deletedCount ? "" : "La solicitud no fue eliminada.",
         });
       } catch (error) {
         solicitudesEliminadas.push({
-          afectado: correlativo,
+          afectado: rut,
           realizado: false,
           error: `${error.name} - ${error.message}`,
         });
