@@ -409,7 +409,7 @@ describe("Endpoints pacientes salida", () => {
       const { respuesta } = response.body;
 
       expect(respuesta.length).toBe(4);
-      console.log(respuesta)
+
       expect(respuesta).toEqual([
         {
           afectado: "33333333-3",

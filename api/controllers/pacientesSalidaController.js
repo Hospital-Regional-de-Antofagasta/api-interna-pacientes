@@ -130,7 +130,7 @@ exports.updateMany = async (req, res) => {
     });
   } catch (error) {
     res.status(500).send({
-      error: `Actualizar pacientes: ${error.name} - ${error.message}`,
+      error: `Pacientes update: ${error.name} - ${error.message}`,
       respuesta: pacientesActualizados,
     });
   }
@@ -165,12 +165,10 @@ exports.deleteMany = async (req, res) => {
         // si solo encontro uno para eliminar, remueve el codigoEstablecimiento y si
         // no hay tiene mas codigosEstablecimientos lo elimina
         const pacienteMismoRut = pacientesMismoRut[0];
-        console.log("original", pacienteMismoRut.codigosEstablecimientos)
         const index = pacienteMismoRut.codigosEstablecimientos.indexOf(codigoEstablecimiento)
         if (index > -1) {
           pacienteMismoRut.codigosEstablecimientos.splice(index, 1);
         }
-        console.log("removido", pacienteMismoRut.codigosEstablecimientos)
         // si aun tiene codigosEstablecimientos, lo actualiza y no lo elimina
         if (pacienteMismoRut.codigosEstablecimientos.length > 0) {
           const response = await Pacientes.updateOne(
@@ -193,8 +191,6 @@ exports.deleteMany = async (req, res) => {
           error: response.deletedCount ? "" : "El paciente no fue eliminado.",
         });
       } catch (error) {
-        console.log(error.name)
-        console.log(error.message)
         pacientesEliminados.push({
           afectado: rut,
           realizado: false,

@@ -24,8 +24,10 @@ exports.deleteSolicitudesActualizacion = async (req, res) => {
     for (let rut of rutsPacientes) {
       try {
         const solicitudAEliminar = await PacientesActualizados.find({
-          rut,
-          codigoEstablecimiento,
+          $and: [
+            { rut },
+            { codigoEstablecimiento },
+          ],
         }).exec();
         // si no existe la solicitud, reportar el error e indicar que se elimino
         if (solicitudAEliminar.length === 0) {
@@ -41,7 +43,7 @@ exports.deleteSolicitudesActualizacion = async (req, res) => {
           solicitudesEliminadas.push({
             afectado: rut,
             realizado: false,
-            error: `Existen ${solicitudAEliminar.length} pacientes con el rut ${rut}.`,
+            error: `Existen ${solicitudAEliminar.length} solicitudes de actualización con el rut ${rut}.`,
           });
           continue;
         }
@@ -67,9 +69,6 @@ exports.deleteSolicitudesActualizacion = async (req, res) => {
       respuesta: solicitudesEliminadas,
     });
   } catch (error) {
-    console.log(
-      `Pacientes deleteSolicitudesActualizacion: ${error.name} - ${error.message}`
-    );
     res.status(500).send({
       error: `Pacientes deleteSolicitudesActualizacion: ${error.name} - ${error.message}`,
       respuesta: solicitudesEliminadas,
