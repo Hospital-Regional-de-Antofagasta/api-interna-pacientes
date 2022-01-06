@@ -7,9 +7,9 @@ const Paciente = mongoose.model(
     {
       rut: { type: String, require: true, unique: true },
       nombreSocial: String,
-      nombre: String,
-      apellidoPaterno: String,
-      apellidoMaterno: String,
+      nombre: { type: String, require: true },
+      apellidoPaterno: { type: String, require: true },
+      apellidoMaterno: { type: String, require: true },
       detallesDireccion: String,
       direccionNumero: String,
       direccion: String,
