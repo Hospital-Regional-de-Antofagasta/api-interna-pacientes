@@ -179,12 +179,12 @@ helm {
             from charts.api
 
             forTarget('local') {
-                values.put('secrets.mongoUrl', "mongodb://$mongoIp:27017/hrapp_dev")
+                values.put('secrets.mongoUrl', "mongodb://$mongoIp:27017/hrapp_pacientes_dev")
             }
 
             forTarget('cloud') {
                 values.put('secrets.apiKey', apiKey)
-                values.put('secrets.mongoUrl', "mongodb://$mongoIp:27017/hrapp")
+                values.put('secrets.mongoUrl', "mongodb://$mongoIp:27017/hrapp_pacientes")
             }
 
             forAnyTarget{
