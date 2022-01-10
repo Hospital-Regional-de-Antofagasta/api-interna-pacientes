@@ -1,17 +1,17 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "api-interna-pacientes-new.fullname" . }}
+  name: {{ include "api-interna-pacientes.fullname" . }}
   namespace: {{ .Release.Namespace }}
   labels:
-    {{- include "api-interna-pacientes-new.labels" . | nindent 4 }}
+    {{- include "api-interna-pacientes.labels" . | nindent 4 }}
 spec:
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
   {{- end }}
   selector:
     matchLabels:
-      {{- include "api-interna-pacientes-new.selectorLabels" . | nindent 6 }}
+      {{- include "api-interna-pacientes.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       annotations:
@@ -20,7 +20,7 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       labels:
-        {{- include "api-interna-pacientes-new.selectorLabels" . | nindent 8 }}
+        {{- include "api-interna-pacientes.selectorLabels" . | nindent 8 }}
     spec:
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
@@ -50,12 +50,12 @@ spec:
             - name: HRADB_A_MONGODB_SECRET
               valueFrom:
                 secretKeyRef:
-                  name: {{ include "api-interna-pacientes-new.secrets" . }}
+                  name: {{ include "api-interna-pacientes.secrets" . }}
                   key: api-key
             - name: MONGO_URI
               valueFrom:
                 secretKeyRef:
-                  name: {{ include "api-interna-pacientes-new.secrets" . }}
+                  name: {{ include "api-interna-pacientes.secrets" . }}
                   key: mongo
 
           {{- if .Values.resources }}

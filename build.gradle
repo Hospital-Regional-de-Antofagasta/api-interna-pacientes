@@ -175,7 +175,7 @@ helm {
     }
 
     releases {
-        "api-interna-pacientes-new" {
+        "api-interna-pacientes" {
             from charts.api
 
             forTarget('local') {
