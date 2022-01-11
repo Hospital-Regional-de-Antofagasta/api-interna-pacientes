@@ -1,7 +1,15 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const Paciente = mongoose.model(
+const env = process.env.NODE_ENV;
+
+let db = "hrapp_pacientes";
+
+if (env === "test") db = `${db}_1_test`;
+
+const conection = mongoose.connection.useDb(db);
+
+const Paciente = conection.model(
   "paciente",
   new Schema(
     {

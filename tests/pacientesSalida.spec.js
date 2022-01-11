@@ -69,16 +69,20 @@ const pacienteActualizar = {
 };
 
 beforeEach(async () => {
-  await mongoose.disconnect();
-  await mongoose.connect(`${process.env.MONGO_URI}/pacientes_salida_test`, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  });
+  // await mongoose.disconnect();
+  // await mongoose.connect(`${process.env.MONGO_URI}/pacientes_salida_test`, {
+  //   useNewUrlParser: true,
+  //   useUnifiedTopology: true,
+  // });
   await Pacientes.create(pacientesSeed);
 });
 
 afterEach(async () => {
   await Pacientes.deleteMany();
+  // await mongoose.disconnect();
+});
+
+afterAll(async () => {
   await mongoose.disconnect();
 });
 
@@ -264,7 +268,7 @@ describe("Endpoints pacientes salida", () => {
           afectado: "66666666-6",
           realizado: false,
           error:
-            "MongoServerError - E11000 duplicate key error collection: pacientes_salida_test.pacientes index: _id_ dup key: { _id: ObjectId('303030303030303030303136') }",
+            "MongoServerError - E11000 duplicate key error collection: hrapp_pacientes_1_test.pacientes index: _id_ dup key: { _id: ObjectId('303030303030303030303136') }",
         },
         {
           afectado: "55555555-5",

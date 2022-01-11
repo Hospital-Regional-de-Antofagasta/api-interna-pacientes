@@ -22,6 +22,7 @@ jobs:
           PORT: "3000"
           HOST_NAME: "localhost"
           HRADB_A_MONGODB_SECRET: "TEST"
+          NODE_ENV: "test"
         run: |
           chmod +x ./gradlew
           ./gradlew build
