@@ -29,7 +29,6 @@ const Paciente = conection.model(
       telefonoMovil: String,
       correoCuerpo: String,
       correoExtension: String,
-      fechaFallecimiento: Date,
       codigosEstablecimientos: [String],
       datosContactoActualizados: { type: Boolean, default: false },
     },
