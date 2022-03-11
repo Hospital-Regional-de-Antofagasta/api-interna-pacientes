@@ -15,9 +15,9 @@ const Paciente = conection.model(
     {
       rut: { type: String, required: true, unique: true },
       nombreSocial: String,
-      nombre: { type: String, required: true },
-      apellidoPaterno: { type: String, required: true },
-      apellidoMaterno: { type: String, required: true },
+      nombre: { type: String },
+      apellidoPaterno: { type: String },
+      apellidoMaterno: { type: String },
       detallesDireccion: String,
       direccionNumero: String,
       direccion: String,
