@@ -13,8 +13,8 @@ const PacientesActualizados = conection.model(
   "pacientes_actualizado",
   new Schema(
     {
-      idPaciente: { type: String, require: true },
-      rut: { type: String, require: true },
+      idPaciente: { type: String, required: true },
+      rut: { type: String, required: true },
       direccion: String,
       direccionNumero: String,
       detallesDireccion: String,
@@ -26,7 +26,7 @@ const PacientesActualizados = conection.model(
       telefonoMovil: String,
       correoCuerpo: String,
       correoExtension: String,
-      codigoEstablecimiento: { type: String, require: true },
+      codigoEstablecimiento: { type: String, required: true },
     },
     { timestamps: true }
   )
