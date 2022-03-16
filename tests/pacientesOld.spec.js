@@ -1,22 +1,22 @@
 const supertest = require("supertest");
 const app = require("../api/app");
 const mongoose = require("mongoose");
-const Pacientes = require("../api/models/Pacientes");
-const PacientesActualizados = require("../api/models/PacientesActualizados");
-const pacientesSeed = require("../tests/testSeeds/pacientesSeed.json");
-const pacientesActualizadosSeed = require("../tests/testSeeds/pacientesActualizadosSeed.json");
+const Pacientes = require("../api/models/PacientesOld");
+const PacientesActualizados = require("../api/models/PacientesActualizadosOld");
+const pacientesSeed = require("../tests/testSeeds/pacientesOldSeed.json");
+const pacientesActualizadosSeed = require("../tests/testSeeds/pacientesActualizadosOldSeed.json");
 
 const request = supertest(app);
 
 const token = process.env.HRADB_A_MONGODB_SECRET;
 
 beforeEach(async () => {
-  await mongoose.disconnect();
-  // conectarse a la bd de testing
-  await mongoose.connect(`${process.env.MONGO_URI}/pacientes_test`, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  });
+  // await mongoose.disconnect();
+  // // conectarse a la bd de testing
+  // await mongoose.connect(`${process.env.MONGO_URI}/pacientes_test`, {
+  //   useNewUrlParser: true,
+  //   useUnifiedTopology: true,
+  // });
   // cargar los seeds a la bd
   await Pacientes.create(pacientesSeed);
   await PacientesActualizados.create(pacientesActualizadosSeed);
@@ -27,6 +27,10 @@ afterEach(async () => {
   await Pacientes.deleteMany();
   await PacientesActualizados.deleteMany();
   // cerrar la coneccion a la bd
+  // await mongoose.disconnect();
+});
+
+afterAll(async () => {
   await mongoose.disconnect();
 });
 

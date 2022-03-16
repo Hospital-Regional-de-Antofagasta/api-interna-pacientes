@@ -1,6 +1,6 @@
-const Paciente = require("../models/Pacientes");
-const Pacientes = require("../models/Pacientes");
-const PacientesActualizados = require("../models/PacientesActualizados");
+const Paciente = require("../models/PacientesOld");
+const Pacientes = require("../models/PacientesOld");
+const PacientesActualizados = require("../models/PacientesActualizadosOld");
 
 // Obtener el ultimo paciente registrado en la bd MongoDB del establecimiento dado.
 exports.getLast = async (req, res) => {

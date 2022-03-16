@@ -3,18 +3,21 @@ const Schema = mongoose.Schema;
 
 const env = process.env.NODE_ENV;
 
-let db = "hrapp_pacientes";
+let db = "hrapp";
 
-if (env === "test") db = `${db}_2_test`;
+if (env === "test") db = `${db}_1_test`;
 
 const conection = mongoose.connection.useDb(db);
 
-const PacientesActualizados = conection.model(
-  "pacientes_actualizado",
+const Paciente = conection.model(
+  "paciente",
   new Schema(
     {
-      idPaciente: { type: String, required: true },
-      rut: { type: String, required: true },
+      numeroPaciente: { type: Number, require: true },
+      rut: String,
+      apellidoPaterno: String,
+      apellidoMaterno: String,
+      nombre: String,
       direccion: String,
       direccionNumero: String,
       detallesDireccion: String,
@@ -26,10 +29,12 @@ const PacientesActualizados = conection.model(
       telefonoMovil: String,
       correoCuerpo: String,
       correoExtension: String,
-      codigoEstablecimiento: { type: String, required: true },
+      datosContactoActualizados: { type: Boolean, default: false },
+      fechaFallecimiento: Date,
+      nombreSocial: String,
     },
     { timestamps: true }
-  )
+  ) //.index({ "numeroPaciente.numero": 1, "numeroPaciente.codigoEstablecimiento": 1 },{ unique: true })
 );
 
-module.exports = PacientesActualizados;
+module.exports = Paciente;

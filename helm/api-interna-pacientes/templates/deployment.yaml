@@ -36,11 +36,11 @@ spec:
               protocol: TCP
           livenessProbe:
             httpGet:
-              path: /hradb-a-mongodb/pacientes/health
+              path: /inter-mongo-pacientes/health
               port: {{ .Values.service.targetPort }}
           readinessProbe:
             httpGet:
-              path: /hradb-a-mongodb/pacientes/health
+              path: /inter-mongo-pacientes/health
               port: {{ .Values.service.targetPort }}
           env:
             - name: PORT
