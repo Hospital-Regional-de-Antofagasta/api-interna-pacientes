@@ -13,11 +13,11 @@ const Paciente = conection.model(
   "paciente",
   new Schema(
     {
-      rut: { type: String, require: true, unique: true },
+      rut: { type: String, required: true, unique: true },
       nombreSocial: String,
-      nombre: { type: String, require: true },
-      apellidoPaterno: { type: String, require: true },
-      apellidoMaterno: { type: String, require: true },
+      nombre: { type: String },
+      apellidoPaterno: { type: String },
+      apellidoMaterno: { type: String },
       detallesDireccion: String,
       direccionNumero: String,
       direccion: String,
