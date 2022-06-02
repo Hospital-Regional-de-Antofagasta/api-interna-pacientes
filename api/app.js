@@ -5,7 +5,7 @@ const cors = require("cors");
 
 const pacientesSalida = require("./routes/pacientesSalida");
 const pacientesEntrada = require("./routes/pacientesEntrada");
-const pacientes = require("./routes/pacientesOld");
+const pacientes = require("./routes/pacientes");
 
 const app = express();
 
@@ -31,7 +31,7 @@ app.use("/inter-mongo-pacientes/salida", pacientesSalida);
 // Desde la nube al hospital
 app.use("/inter-mongo-pacientes/entrada", pacientesEntrada);
 
-app.use("/hradb-a-mongodb/pacientes", pacientes);
+app.use("/inter-mongo-pacientes/pacientes", pacientes);
 
 if (require.main === module) {
   // true if file is executed

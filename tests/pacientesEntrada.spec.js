@@ -11,11 +11,11 @@ const request = supertest(app);
 const token = process.env.HRADB_A_MONGODB_SECRET;
 
 beforeEach(async () => {
-  // await mongoose.disconnect();
-  // await mongoose.connect(`${process.env.MONGO_URI}/pacientes_entrada_test`, {
-  //   useNewUrlParser: true,
-  //   useUnifiedTopology: true,
-  // });
+  await mongoose.disconnect();
+  await mongoose.connect(`${process.env.MONGO_URI}/pacientes_entrada_test`, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  });
   await Pacientes.create(pacientesSeed);
   await PacientesActualizados.create(pacientesActualizadosSeed);
 });
@@ -23,10 +23,6 @@ beforeEach(async () => {
 afterEach(async () => {
   await Pacientes.deleteMany();
   await PacientesActualizados.deleteMany();
-  // await mongoose.disconnect();
-});
-
-afterAll(async () => {
   await mongoose.disconnect();
 });
 
