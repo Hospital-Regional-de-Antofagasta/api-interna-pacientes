@@ -39,6 +39,14 @@ describe("Endpoints pacientes salida", () => {
       expect(response.status).toBe(401);
       expect(response.body.error).toBe("Acceso no autorizado.");
     });
+    it("Should not get ids suscriptor paciente if paciente doesn't exists", async () => {
+      const response = await request
+        .get("/inter-mongo-pacientes/pacientes/ids-suscriptor/3")
+        .set("Authorization", token);
+
+      expect(response.status).toBe(400);
+      expect(response.body.error).toBe("Paciente no encontrado");
+    });
     it("Should get ids suscriptor del paciente", async () => {
       const response = await request
         .get("/inter-mongo-pacientes/pacientes/ids-suscriptor/11111111-1")
