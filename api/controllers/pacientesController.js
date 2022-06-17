@@ -11,7 +11,7 @@ exports.getIdsSuscriptor = async (req, res) => {
     if (!idsSuscriptor)
       return res.status(400).send({ error: "Paciente no encontrado" });
 
-    res.status(200).send(idsSuscriptor?.idSuscriptor);
+    res.status(200).send(idsSuscriptor?.idsSuscriptor.map(e => e.idSuscriptor));
   } catch (error) {
     res.status(500).send({
       error: `Pacientes create: ${error.name} - ${error.message}`,
