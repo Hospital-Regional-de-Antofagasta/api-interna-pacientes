@@ -182,9 +182,7 @@ describe("Endpoints pacientes entrada", () => {
     });
     it("Debería retornar error si no se recibe el código de establecimiento.", async () => {
       const response = await request
-        .get(
-          "/inter-mongo-pacientes/entrada/solicitudes-ids-suscriptor"
-        )
+        .get("/inter-mongo-pacientes/entrada/solicitudes-ids-suscriptor")
         .set("Authorization", token);
 
       expect(response.status).toBe(400);
@@ -237,6 +235,101 @@ describe("Endpoints pacientes entrada", () => {
       expect(response.status).toBe(200);
 
       expect(response.body.respuesta.length).toBe(100);
+    });
+  });
+  describe("DELETE /inter-mongo-pacientes/entrada/solicitudes-ids-Suscriptor", () => {
+    it("Should not delete solicitudes actualizar paciente without token", async () => {
+      const response = await request.delete(
+        "/inter-mongo-pacientes/entrada/solicitudes-ids-Suscriptor?codigoEstablecimiento=HRA"
+      );
+
+      expect(response.status).toBe(401);
+
+      expect(response.body.error).toBe("Acceso no autorizado.");
+    });
+    it("Should not delete solicitudes actualizar paciente with invalid token", async () => {
+      const response = await request
+        .delete(
+          "/inter-mongo-pacientes/entrada/solicitudes-ids-Suscriptor?codigoEstablecimiento=HRA"
+        )
+        .set("Authorization", "no-token");
+
+      expect(response.status).toBe(401);
+
+      expect(response.body.error).toBe("Acceso no autorizado.");
+    });
+    it("Should not delete solicitudes actualizar paciente without codigo establecimiento", async () => {
+      const response = await request
+        .delete("/inter-mongo-pacientes/entrada/solicitudes-ids-Suscriptor")
+        .set("Authorization", token);
+
+      expect(response.status).toBe(400);
+
+      expect(response.body.error).toBe(
+        "Se debe enviar el codigo del establecimiento."
+      );
+    });
+    it("Should delete solicitudes", async () => {
+      const response = await request
+        .delete(
+          "/inter-mongo-pacientes/entrada/solicitudes-ids-Suscriptor?codigoEstablecimiento=HRA"
+        )
+        .set("Authorization", token)
+        .send([
+          {
+            rutPaciente: "11111111-1",
+            idSuscriptor: "1239784534",
+            accion: "INSERTAR",
+          },
+          {
+            rutPaciente: "44444444-4",
+            idSuscriptor: "46983485796",
+            accion: "INSERTAR",
+          },
+          {
+            rutPaciente: "11111111-1",
+            idSuscriptor: "0864764563",
+            accion: "ELIMINAR",
+          },
+          {
+            rutPaciente: "55555555-5",
+            idSuscriptor: "8827543247",
+            accion: "ELIMINAR",
+          },
+        ]);
+
+      expect(response.status).toBe(200);
+
+      const solicitudesBD =
+        await SolicitudesIdsSuscriptorPacientes.find().exec();
+
+      expect(solicitudesBD.length).toBe(3);
+
+      const { respuesta } = response.body;
+
+      expect(respuesta.length).toBe(4);
+      expect(respuesta).toEqual([
+        {
+          afectado: "11111111-1|1239784534|INSERTAR",
+          realizado: true,
+          error: "",
+        },
+        {
+          afectado: "44444444-4|46983485796|INSERTAR",
+          realizado: true,
+          error: "La solicitud no existe.",
+        },
+        {
+          afectado: "11111111-1|0864764563|ELIMINAR",
+          realizado: true,
+          error: "",
+        },
+        {
+          afectado: "55555555-5|8827543247|ELIMINAR",
+          realizado: true,
+          error: "La solicitud no existe.",
+        },
+      ]);
     });
   });
 });
