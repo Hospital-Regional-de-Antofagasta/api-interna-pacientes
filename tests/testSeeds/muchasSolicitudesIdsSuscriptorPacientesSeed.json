@@ -1,0 +1,662 @@
+[
+  {
+    "rutPaciente": "11111111-1",
+    "idSuscriptor": "1239784534",
+    "accion": "INSERTAR",
+    "codigoEstablecimiento": "HRA"
+  },
+  {
+    "rutPaciente": "33333333-3",
+    "idSuscriptor": "46983485796",
+    "accion": "INSERTAR",
+    "codigoEstablecimiento": "HRA"
+  },
+  {
+    "rutPaciente": "11111111-1",
+    "idSuscriptor": "0864764563",
+    "accion": "ELIMINAR",
+    "codigoEstablecimiento": "HRA"
+  },
+  {
+    "rutPaciente": "11111111-1",
+    "idSuscriptor": "8827543247",
+    "accion": "ELIMINAR",
+    "codigoEstablecimiento": "HRA"
+  },
+  {
+    "rutPaciente": "22222222-2",
+    "idSuscriptor": "1238579384",
+    "accion": "INSERTAR",
+    "codigoEstablecimiento": "HRA"
+  },
+  {
+    "rutPaciente": "11111111-1",
+    "idSuscriptor": "1239784534",
+    "accion": "INSERTAR",
+    "codigoEstablecimiento": "HRA"
+  },
+  {
+    "rutPaciente": "33333333-3",
+    "idSuscriptor": "46983485796",
+    "accion": "INSERTAR",
+    "codigoEstablecimiento": "HRA"
+  },
+  {
+    "rutPaciente": "11111111-1",
+    "idSuscriptor": "0864764563",
+    "accion": "ELIMINAR",
+    "codigoEstablecimiento": "HRA"
+  },
+  {
+    "rutPaciente": "11111111-1",
+    "idSuscriptor": "8827543247",
+    "accion": "ELIMINAR",
+    "codigoEstablecimiento": "HRA"
+  },
+  {
+    "rutPaciente": "22222222-2",
+    "idSuscriptor": "1238579384",
+    "accion": "INSERTAR",
+    "codigoEstablecimiento": "HRA"
+  },
+  {
+    "rutPaciente": "11111111-1",
+    "idSuscriptor": "1239784534",
+    "accion": "INSERTAR",
+    "codigoEstablecimiento": "HRA"
+  },
+  {
+    "rutPaciente": "33333333-3",
+    "idSuscriptor": "46983485796",
+    "accion": "INSERTAR",
+    "codigoEstablecimiento": "HRA"
+  },
+  {
+    "rutPaciente": "11111111-1",
+    "idSuscriptor": "0864764563",
+    "accion": "ELIMINAR",
+    "codigoEstablecimiento": "HRA"
+  },
+  {
+    "rutPaciente": "11111111-1",
+    "idSuscriptor": "8827543247",
+    "accion": "ELIMINAR",
+    "codigoEstablecimiento": "HRA"
+  },
+  {
+    "rutPaciente": "22222222-2",
+    "idSuscriptor": "1238579384",
+    "accion": "INSERTAR",
+    "codigoEstablecimiento": "HRA"
+  },
+  {
+    "rutPaciente": "11111111-1",
+    "idSuscriptor": "1239784534",
+    "accion": "INSERTAR",
+    "codigoEstablecimiento": "HRA"
+  },
+  {
+    "rutPaciente": "33333333-3",
+    "idSuscriptor": "46983485796",
+    "accion": "INSERTAR",
+    "codigoEstablecimiento": "HRA"
+  },
+  {
+    "rutPaciente": "11111111-1",
+    "idSuscriptor": "0864764563",
+    "accion": "ELIMINAR",
+    "codigoEstablecimiento": "HRA"
+  },
+  {
+    "rutPaciente": "11111111-1",
+    "idSuscriptor": "8827543247",
+    "accion": "ELIMINAR",
+    "codigoEstablecimiento": "HRA"
+  },
+  {
+    "rutPaciente": "22222222-2",
+    "idSuscriptor": "1238579384",
+    "accion": "INSERTAR",
+    "codigoEstablecimiento": "HRA"
+  },
+  {
+    "rutPaciente": "11111111-1",
+    "idSuscriptor": "1239784534",
+    "accion": "INSERTAR",
+    "codigoEstablecimiento": "HRA"
+  },
+  {
+    "rutPaciente": "33333333-3",
+    "idSuscriptor": "46983485796",
+    "accion": "INSERTAR",
+    "codigoEstablecimiento": "HRA"
+  },
+  {
+    "rutPaciente": "11111111-1",
+    "idSuscriptor": "0864764563",
+    "accion": "ELIMINAR",
+    "codigoEstablecimiento": "HRA"
+  },
+  {
+    "rutPaciente": "11111111-1",
+    "idSuscriptor": "8827543247",
+    "accion": "ELIMINAR",
+    "codigoEstablecimiento": "HRA"
+  },
+  {
+    "rutPaciente": "22222222-2",
+    "idSuscriptor": "1238579384",
+    "accion": "INSERTAR",
+    "codigoEstablecimiento": "HRA"
+  },
+  {
+    "rutPaciente": "11111111-1",
+    "idSuscriptor": "1239784534",
+    "accion": "INSERTAR",
+    "codigoEstablecimiento": "HRA"
+  },
+  {
+    "rutPaciente": "33333333-3",
+    "idSuscriptor": "46983485796",
+    "accion": "INSERTAR",
+    "codigoEstablecimiento": "HRA"
+  },
+  {
+    "rutPaciente": "11111111-1",
+    "idSuscriptor": "0864764563",
+    "accion": "ELIMINAR",
+    "codigoEstablecimiento": "HRA"
+  },
+  {
+    "rutPaciente": "11111111-1",
+    "idSuscriptor": "8827543247",
+    "accion": "ELIMINAR",
+    "codigoEstablecimiento": "HRA"
+  },
+  {
+    "rutPaciente": "22222222-2",
+    "idSuscriptor": "1238579384",
+    "accion": "INSERTAR",
+    "codigoEstablecimiento": "HRA"
+  },
+  {
+    "rutPaciente": "11111111-1",
+    "idSuscriptor": "1239784534",
+    "accion": "INSERTAR",
+    "codigoEstablecimiento": "HRA"
+  },
+  {
+    "rutPaciente": "33333333-3",
+    "idSuscriptor": "46983485796",
+    "accion": "INSERTAR",
+    "codigoEstablecimiento": "HRA"
+  },
+  {
+    "rutPaciente": "11111111-1",
+    "idSuscriptor": "0864764563",
+    "accion": "ELIMINAR",
+    "codigoEstablecimiento": "HRA"
+  },
+  {
+    "rutPaciente": "11111111-1",
+    "idSuscriptor": "8827543247",
+    "accion": "ELIMINAR",
+    "codigoEstablecimiento": "HRA"
+  },
+  {
+    "rutPaciente": "22222222-2",
+    "idSuscriptor": "1238579384",
+    "accion": "INSERTAR",
+    "codigoEstablecimiento": "HRA"
+  },
+  {
+    "rutPaciente": "11111111-1",
+    "idSuscriptor": "1239784534",
+    "accion": "INSERTAR",
+    "codigoEstablecimiento": "HRA"
+  },
+  {
+    "rutPaciente": "33333333-3",
+    "idSuscriptor": "46983485796",
+    "accion": "INSERTAR",
+    "codigoEstablecimiento": "HRA"
+  },
+  {
+    "rutPaciente": "11111111-1",
+    "idSuscriptor": "0864764563",
+    "accion": "ELIMINAR",
+    "codigoEstablecimiento": "HRA"
+  },
+  {
+    "rutPaciente": "11111111-1",
+    "idSuscriptor": "8827543247",
+    "accion": "ELIMINAR",
+    "codigoEstablecimiento": "HRA"
+  },
+  {
+    "rutPaciente": "22222222-2",
+    "idSuscriptor": "1238579384",
+    "accion": "INSERTAR",
+    "codigoEstablecimiento": "HRA"
+  },
+  {
+    "rutPaciente": "11111111-1",
+    "idSuscriptor": "1239784534",
+    "accion": "INSERTAR",
+    "codigoEstablecimiento": "HRA"
+  },
+  {
+    "rutPaciente": "33333333-3",
+    "idSuscriptor": "46983485796",
+    "accion": "INSERTAR",
+    "codigoEstablecimiento": "HRA"
+  },
+  {
+    "rutPaciente": "11111111-1",
+    "idSuscriptor": "0864764563",
+    "accion": "ELIMINAR",
+    "codigoEstablecimiento": "HRA"
+  },
+  {
+    "rutPaciente": "11111111-1",
+    "idSuscriptor": "8827543247",
+    "accion": "ELIMINAR",
+    "codigoEstablecimiento": "HRA"
+  },
+  {
+    "rutPaciente": "22222222-2",
+    "idSuscriptor": "1238579384",
+    "accion": "INSERTAR",
+    "codigoEstablecimiento": "HRA"
+  },
+  {
+    "rutPaciente": "11111111-1",
+    "idSuscriptor": "1239784534",
+    "accion": "INSERTAR",
+    "codigoEstablecimiento": "HRA"
+  },
+  {
+    "rutPaciente": "33333333-3",
+    "idSuscriptor": "46983485796",
+    "accion": "INSERTAR",
+    "codigoEstablecimiento": "HRA"
+  },
+  {
+    "rutPaciente": "11111111-1",
+    "idSuscriptor": "0864764563",
+    "accion": "ELIMINAR",
+    "codigoEstablecimiento": "HRA"
+  },
+  {
+    "rutPaciente": "11111111-1",
+    "idSuscriptor": "8827543247",
+    "accion": "ELIMINAR",
+    "codigoEstablecimiento": "HRA"
+  },
+  {
+    "rutPaciente": "22222222-2",
+    "idSuscriptor": "1238579384",
+    "accion": "INSERTAR",
+    "codigoEstablecimiento": "HRA"
+  },
+  {
+    "rutPaciente": "11111111-1",
+    "idSuscriptor": "1239784534",
+    "accion": "INSERTAR",
+    "codigoEstablecimiento": "HRA"
+  },
+  {
+    "rutPaciente": "33333333-3",
+    "idSuscriptor": "46983485796",
+    "accion": "INSERTAR",
+    "codigoEstablecimiento": "HRA"
+  },
+  {
+    "rutPaciente": "11111111-1",
+    "idSuscriptor": "0864764563",
+    "accion": "ELIMINAR",
+    "codigoEstablecimiento": "HRA"
+  },
+  {
+    "rutPaciente": "11111111-1",
+    "idSuscriptor": "8827543247",
+    "accion": "ELIMINAR",
+    "codigoEstablecimiento": "HRA"
+  },
+  {
+    "rutPaciente": "22222222-2",
+    "idSuscriptor": "1238579384",
+    "accion": "INSERTAR",
+    "codigoEstablecimiento": "HRA"
+  },
+  {
+    "rutPaciente": "11111111-1",
+    "idSuscriptor": "1239784534",
+    "accion": "INSERTAR",
+    "codigoEstablecimiento": "HRA"
+  },
+  {
+    "rutPaciente": "33333333-3",
+    "idSuscriptor": "46983485796",
+    "accion": "INSERTAR",
+    "codigoEstablecimiento": "HRA"
+  },
+  {
+    "rutPaciente": "11111111-1",
+    "idSuscriptor": "0864764563",
+    "accion": "ELIMINAR",
+    "codigoEstablecimiento": "HRA"
+  },
+  {
+    "rutPaciente": "11111111-1",
+    "idSuscriptor": "8827543247",
+    "accion": "ELIMINAR",
+    "codigoEstablecimiento": "HRA"
+  },
+  {
+    "rutPaciente": "22222222-2",
+    "idSuscriptor": "1238579384",
+    "accion": "INSERTAR",
+    "codigoEstablecimiento": "HRA"
+  },
+  {
+    "rutPaciente": "11111111-1",
+    "idSuscriptor": "1239784534",
+    "accion": "INSERTAR",
+    "codigoEstablecimiento": "HRA"
+  },
+  {
+    "rutPaciente": "33333333-3",
+    "idSuscriptor": "46983485796",
+    "accion": "INSERTAR",
+    "codigoEstablecimiento": "HRA"
+  },
+  {
+    "rutPaciente": "11111111-1",
+    "idSuscriptor": "0864764563",
+    "accion": "ELIMINAR",
+    "codigoEstablecimiento": "HRA"
+  },
+  {
+    "rutPaciente": "11111111-1",
+    "idSuscriptor": "8827543247",
+    "accion": "ELIMINAR",
+    "codigoEstablecimiento": "HRA"
+  },
+  {
+    "rutPaciente": "22222222-2",
+    "idSuscriptor": "1238579384",
+    "accion": "INSERTAR",
+    "codigoEstablecimiento": "HRA"
+  },
+  {
+    "rutPaciente": "11111111-1",
+    "idSuscriptor": "1239784534",
+    "accion": "INSERTAR",
+    "codigoEstablecimiento": "HRA"
+  },
+  {
+    "rutPaciente": "33333333-3",
+    "idSuscriptor": "46983485796",
+    "accion": "INSERTAR",
+    "codigoEstablecimiento": "HRA"
+  },
+  {
+    "rutPaciente": "11111111-1",
+    "idSuscriptor": "0864764563",
+    "accion": "ELIMINAR",
+    "codigoEstablecimiento": "HRA"
+  },
+  {
+    "rutPaciente": "11111111-1",
+    "idSuscriptor": "8827543247",
+    "accion": "ELIMINAR",
+    "codigoEstablecimiento": "HRA"
+  },
+  {
+    "rutPaciente": "22222222-2",
+    "idSuscriptor": "1238579384",
+    "accion": "INSERTAR",
+    "codigoEstablecimiento": "HRA"
+  },
+  {
+    "rutPaciente": "11111111-1",
+    "idSuscriptor": "1239784534",
+    "accion": "INSERTAR",
+    "codigoEstablecimiento": "HRA"
+  },
+  {
+    "rutPaciente": "33333333-3",
+    "idSuscriptor": "46983485796",
+    "accion": "INSERTAR",
+    "codigoEstablecimiento": "HRA"
+  },
+  {
+    "rutPaciente": "11111111-1",
+    "idSuscriptor": "0864764563",
+    "accion": "ELIMINAR",
+    "codigoEstablecimiento": "HRA"
+  },
+  {
+    "rutPaciente": "11111111-1",
+    "idSuscriptor": "8827543247",
+    "accion": "ELIMINAR",
+    "codigoEstablecimiento": "HRA"
+  },
+  {
+    "rutPaciente": "22222222-2",
+    "idSuscriptor": "1238579384",
+    "accion": "INSERTAR",
+    "codigoEstablecimiento": "HRA"
+  },
+  {
+    "rutPaciente": "11111111-1",
+    "idSuscriptor": "1239784534",
+    "accion": "INSERTAR",
+    "codigoEstablecimiento": "HRA"
+  },
+  {
+    "rutPaciente": "33333333-3",
+    "idSuscriptor": "46983485796",
+    "accion": "INSERTAR",
+    "codigoEstablecimiento": "HRA"
+  },
+  {
+    "rutPaciente": "11111111-1",
+    "idSuscriptor": "0864764563",
+    "accion": "ELIMINAR",
+    "codigoEstablecimiento": "HRA"
+  },
+  {
+    "rutPaciente": "11111111-1",
+    "idSuscriptor": "8827543247",
+    "accion": "ELIMINAR",
+    "codigoEstablecimiento": "HRA"
+  },
+  {
+    "rutPaciente": "22222222-2",
+    "idSuscriptor": "1238579384",
+    "accion": "INSERTAR",
+    "codigoEstablecimiento": "HRA"
+  },
+  {
+    "rutPaciente": "11111111-1",
+    "idSuscriptor": "1239784534",
+    "accion": "INSERTAR",
+    "codigoEstablecimiento": "HRA"
+  },
+  {
+    "rutPaciente": "33333333-3",
+    "idSuscriptor": "46983485796",
+    "accion": "INSERTAR",
+    "codigoEstablecimiento": "HRA"
+  },
+  {
+    "rutPaciente": "11111111-1",
+    "idSuscriptor": "0864764563",
+    "accion": "ELIMINAR",
+    "codigoEstablecimiento": "HRA"
+  },
+  {
+    "rutPaciente": "11111111-1",
+    "idSuscriptor": "8827543247",
+    "accion": "ELIMINAR",
+    "codigoEstablecimiento": "HRA"
+  },
+  {
+    "rutPaciente": "22222222-2",
+    "idSuscriptor": "1238579384",
+    "accion": "INSERTAR",
+    "codigoEstablecimiento": "HRA"
+  },
+  {
+    "rutPaciente": "11111111-1",
+    "idSuscriptor": "1239784534",
+    "accion": "INSERTAR",
+    "codigoEstablecimiento": "HRA"
+  },
+  {
+    "rutPaciente": "33333333-3",
+    "idSuscriptor": "46983485796",
+    "accion": "INSERTAR",
+    "codigoEstablecimiento": "HRA"
+  },
+  {
+    "rutPaciente": "11111111-1",
+    "idSuscriptor": "0864764563",
+    "accion": "ELIMINAR",
+    "codigoEstablecimiento": "HRA"
+  },
+  {
+    "rutPaciente": "11111111-1",
+    "idSuscriptor": "8827543247",
+    "accion": "ELIMINAR",
+    "codigoEstablecimiento": "HRA"
+  },
+  {
+    "rutPaciente": "22222222-2",
+    "idSuscriptor": "1238579384",
+    "accion": "INSERTAR",
+    "codigoEstablecimiento": "HRA"
+  },
+  {
+    "rutPaciente": "11111111-1",
+    "idSuscriptor": "1239784534",
+    "accion": "INSERTAR",
+    "codigoEstablecimiento": "HRA"
+  },
+  {
+    "rutPaciente": "33333333-3",
+    "idSuscriptor": "46983485796",
+    "accion": "INSERTAR",
+    "codigoEstablecimiento": "HRA"
+  },
+  {
+    "rutPaciente": "11111111-1",
+    "idSuscriptor": "0864764563",
+    "accion": "ELIMINAR",
+    "codigoEstablecimiento": "HRA"
+  },
+  {
+    "rutPaciente": "11111111-1",
+    "idSuscriptor": "8827543247",
+    "accion": "ELIMINAR",
+    "codigoEstablecimiento": "HRA"
+  },
+  {
+    "rutPaciente": "22222222-2",
+    "idSuscriptor": "1238579384",
+    "accion": "INSERTAR",
+    "codigoEstablecimiento": "HRA"
+  },
+  {
+    "rutPaciente": "11111111-1",
+    "idSuscriptor": "1239784534",
+    "accion": "INSERTAR",
+    "codigoEstablecimiento": "HRA"
+  },
+  {
+    "rutPaciente": "33333333-3",
+    "idSuscriptor": "46983485796",
+    "accion": "INSERTAR",
+    "codigoEstablecimiento": "HRA"
+  },
+  {
+    "rutPaciente": "11111111-1",
+    "idSuscriptor": "0864764563",
+    "accion": "ELIMINAR",
+    "codigoEstablecimiento": "HRA"
+  },
+  {
+    "rutPaciente": "11111111-1",
+    "idSuscriptor": "8827543247",
+    "accion": "ELIMINAR",
+    "codigoEstablecimiento": "HRA"
+  },
+  {
+    "rutPaciente": "22222222-2",
+    "idSuscriptor": "1238579384",
+    "accion": "INSERTAR",
+    "codigoEstablecimiento": "HRA"
+  },
+  {
+    "rutPaciente": "11111111-1",
+    "idSuscriptor": "1239784534",
+    "accion": "INSERTAR",
+    "codigoEstablecimiento": "HRA"
+  },
+  {
+    "rutPaciente": "33333333-3",
+    "idSuscriptor": "46983485796",
+    "accion": "INSERTAR",
+    "codigoEstablecimiento": "HRA"
+  },
+  {
+    "rutPaciente": "11111111-1",
+    "idSuscriptor": "0864764563",
+    "accion": "ELIMINAR",
+    "codigoEstablecimiento": "HRA"
+  },
+  {
+    "rutPaciente": "11111111-1",
+    "idSuscriptor": "8827543247",
+    "accion": "ELIMINAR",
+    "codigoEstablecimiento": "HRA"
+  },
+  {
+    "rutPaciente": "22222222-2",
+    "idSuscriptor": "1238579384",
+    "accion": "INSERTAR",
+    "codigoEstablecimiento": "HRA"
+  },
+  {
+    "rutPaciente": "11111111-1",
+    "idSuscriptor": "1239784534",
+    "accion": "INSERTAR",
+    "codigoEstablecimiento": "HRA"
+  },
+  {
+    "rutPaciente": "33333333-3",
+    "idSuscriptor": "46983485796",
+    "accion": "INSERTAR",
+    "codigoEstablecimiento": "HRA"
+  },
+  {
+    "rutPaciente": "11111111-1",
+    "idSuscriptor": "0864764563",
+    "accion": "ELIMINAR",
+    "codigoEstablecimiento": "HRA"
+  },
+  {
+    "rutPaciente": "11111111-1",
+    "idSuscriptor": "8827543247",
+    "accion": "ELIMINAR",
+    "codigoEstablecimiento": "HRA"
+  },
+  {
+    "rutPaciente": "22222222-2",
+    "idSuscriptor": "1238579384",
+    "accion": "INSERTAR",
+    "codigoEstablecimiento": "HRA"
+  }
+]
