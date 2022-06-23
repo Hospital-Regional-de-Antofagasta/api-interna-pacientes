@@ -220,6 +220,7 @@ describe("Endpoints pacientes entrada", () => {
       expect(response.body.respuesta[0].idSuscriptor).toBe("1239784534");
       expect(response.body.respuesta[0].accion).toBe("INSERTAR");
       expect(response.body.respuesta[0].codigoEstablecimiento).toBeFalsy();
+      expect(response.body.respuesta[0].nombreDispositivo).toBe("moto g7");
       expect(response.body.respuesta[0].__v).toBeFalsy();
     });
     it("Debería retornar máximo 100 solicitudes.", async () => {
