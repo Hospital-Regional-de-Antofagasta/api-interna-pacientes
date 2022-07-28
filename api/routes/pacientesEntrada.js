@@ -19,4 +19,18 @@ router.delete(
   pacientesEntradaController.deleteSolicitudesActualizacion
 );
 
+router.get(
+  "/solicitudes-ids-suscriptor",
+  isAuthenticated,
+  requiredParameters,
+  pacientesEntradaController.getSolicitudesIdSuscriptor
+);
+
+router.delete(
+  "/solicitudes-ids-suscriptor",
+  isAuthenticated,
+  requiredParameters,
+  pacientesEntradaController.deleteSolicitudesIdSuscriptor
+);
+
 module.exports = router;
