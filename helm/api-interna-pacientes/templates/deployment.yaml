@@ -57,6 +57,21 @@ spec:
                 secretKeyRef:
                   name: {{ include "api-interna-pacientes.secrets" . }}
                   key: mongo
+            - name: ONE_SIGNAL_APP_ID
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "api-interna-pacientes.secrets" . }}
+                  key: one-signal-app-id
+            - name: ONE_SIGNAL_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "api-interna-pacientes.secrets" . }}
+                  key: one-signal-token
+            - name: ONE_SIGNAL_URL
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "api-interna-pacientes.secrets" . }}
+                  key: one-signal-url
 
           {{- if .Values.resources }}
           resources:
