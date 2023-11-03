@@ -1,7 +1,7 @@
 const supertest = require("supertest");
 const app = require("../api/app");
 const mongoose = require("mongoose");
-const IdsSuscriptorPacientes = require("../api/models/IdsSuscriptorPacientes")
+const IdsSuscriptorPacientes = require("../api/models/IdsSuscriptorPacientes");
 const idsSuscriptorPacientesSeed = require("../tests/testSeeds/idsSuscriptorPacientesSeed.json");
 
 const request = supertest(app);
@@ -25,8 +25,9 @@ afterEach(async () => {
 describe("Endpoints pacientes salida", () => {
   describe("GET /inter-mongo-pacientes/pacientes/ids-suscriptor", () => {
     it("Should not get ids suscriptor paciente without token", async () => {
-      const response = await request
-        .get("/inter-mongo-pacientes/pacientes/ids-suscriptor/11111111-1");
+      const response = await request.get(
+        "/inter-mongo-pacientes/pacientes/ids-suscriptor/11111111-1"
+      );
 
       expect(response.status).toBe(401);
       expect(response.body.error).toBe("Acceso no autorizado.");
@@ -53,9 +54,17 @@ describe("Endpoints pacientes salida", () => {
         .set("Authorization", token);
 
       expect(response.status).toBe(200);
-      expect(response.body[0]).toBe("74812312-3489");
-      expect(response.body[1]).toBe("20398402-8340");
-      expect(response.body[2]).toBe("23940-2394123");
+      expect(response.body[0]).toEqual({
+        idSuscriptor: "74812312-3489",
+        esExternalId: true,
+      });
+      expect(response.body[1]).toEqual({
+        idSuscriptor: "20398402-8340",
+      });
+      expect(response.body[2]).toEqual({
+        idSuscriptor: "23940-2394123",
+        esExternalId: true,
+      });
     });
   });
 });

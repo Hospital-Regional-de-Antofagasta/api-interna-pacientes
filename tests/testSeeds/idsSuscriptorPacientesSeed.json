@@ -2,17 +2,40 @@
   {
     "rutPaciente": "11111111-1",
     "idsSuscriptor": [
-      { "idSuscriptor": "74812312-3489", "nombreDispositivo": "moto g7" },
-      { "idSuscriptor": "20398402-8340", "nombreDispositivo": "samsung S22" },
-      { "idSuscriptor": "23940-2394123", "nombreDispositivo": "samsung S21" }
+      {
+        "idSuscriptor": "74812312-3489",
+        "nombreDispositivo": "moto g7",
+        "esExternalId": true
+      },
+      {
+        "idSuscriptor": "20398402-8340",
+        "nombreDispositivo": "samsung S22"
+      },
+      {
+        "idSuscriptor": "23940-2394123",
+        "nombreDispositivo": "samsung S21",
+        "esExternalId": true
+      }
     ]
   },
   {
     "rutPaciente": "22222222-2",
     "idsSuscriptor": [
-      { "idSuscriptor": "42341234-234234", "nombreDispositivo": "iphone 13" },
-      { "idSuscriptor": "23423423-234234", "nombreDispositivo": "moto g8" },
-      { "idSuscriptor": "234234234-234234", "nombreDispositivo": "moto g9" }
+      {
+        "idSuscriptor": "42341234-234234",
+        "nombreDispositivo": "iphone 13",
+        "esExternalId": true
+      },
+      {
+        "idSuscriptor": "23423423-234234",
+        "nombreDispositivo": "moto g8",
+        "esExternalId": true
+      },
+      {
+        "idSuscriptor": "234234234-234234",
+        "nombreDispositivo": "moto g9",
+        "esExternalId": true
+      }
     ]
   }
 ]
