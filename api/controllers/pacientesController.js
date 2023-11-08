@@ -50,10 +50,20 @@ const removerIdSuscriptor = async (rutPaciente, idSuscriptor) => {
     { $pull: { idsSuscriptor: { idSuscriptor } } }
   ).exec();
 
-  await SolicitudesIdsSuscriptorPacientes.create({
-    rutPaciente,
-    idSuscriptor,
-    accion: "ELIMINAR",
-    nombreDispositivo: null,
-  });
+  const solicitudIdSuscriptor = await SolicitudesIdsSuscriptorPacientes.findOne(
+    {
+      rutPaciente,
+      idSuscriptor,
+      accion: "ELIMINAR",
+      nombreDispositivo: null,
+    }
+  ).exec();
+
+  if (!solicitudIdSuscriptor)
+    await SolicitudesIdsSuscriptorPacientes.create({
+      rutPaciente,
+      idSuscriptor,
+      accion: "ELIMINAR",
+      nombreDispositivo: null,
+    });
 };
