@@ -1,6 +1,6 @@
 const IdsSuscriptorPacientes = require("../models/IdsSuscriptorPacientes");
 const SolicitudesIdsSuscriptorPacientes = require("../models/SolicitudesIdsSuscriptorPacientes");
-const { getDevice } = require("../services/oneSignalService");
+const { getEstadoActualIdSuscriptor } = require("../services/oneSignalService");
 
 exports.getIdsSuscriptor = async (req, res) => {
   try {
@@ -13,7 +13,9 @@ exports.getIdsSuscriptor = async (req, res) => {
 
     const idsSuscriptorEliminar = [];
     for (let idSuscriptor of idsSuscriptorPaciente.idsSuscriptor) {
-      const oneSignalResponse = await getDevice(idSuscriptor.idSuscriptor);
+      const oneSignalResponse = await getEstadoActualIdSuscriptor(
+        idSuscriptor.idSuscriptor
+      );
 
       if (!oneSignalResponse.id)
         return res.status(500).send({ error: oneSignalResponse });
